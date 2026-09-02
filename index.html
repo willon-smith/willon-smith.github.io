@@ -7,150 +7,226 @@
 <meta name="description" content="Willon Smith. AI Engineer and Technical Delivery Lead. Production AI systems, full stack platforms and automation delivered end to end.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy:#1f3350; --navy2:#24384f; --ink:#1f2933; --muted:#5b6470; --line:#dfe5ea; --paper:#f7f8fa;
-    --card:#ffffff; --accent:#b45309; --accent-on-dark:#f0b775; --tint:#eef3f8; --ok:#1c7a4a;
-    --max:1100px;
+    --ink:#0e1a2b; --ink2:#132238; --paper:#f4f1ea; --card:#fffdf8; --text:#1c2430; --muted:#58606c;
+    --hair:#d9d4c8; --hair2:#e8e3d8; --amber:#c8781a; --amber-dark:#f2b56b; --amber-soft:#fbf1e3;
+    --ok:#1f7a4d; --bad:#b3261e;
+    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+    --sans:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",Consolas,"Courier New",monospace;
+    --max:1120px;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,"Segoe UI",system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;font-feature-settings:"tnum" 1}
+  body{margin:0;background:var(--paper);color:var(--text);font-family:var(--sans);font-size:16.5px;line-height:1.55;-webkit-font-smoothing:antialiased;font-feature-settings:"tnum" 1}
   a{color:inherit}
-  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+  .mono{font-family:var(--mono)}
+  .num{color:var(--amber);font-weight:600;font-family:var(--mono)}
 
-  /* nav */
-  .nav{position:sticky;top:0;z-index:10;background:rgba(31,51,80,.96);backdrop-filter:saturate(1.2) blur(6px);color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
-  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
-  .nav .brand{font-weight:600;letter-spacing:.01em;text-decoration:none}
-  .nav .brand span{color:#c9d3df;font-weight:400}
-  .nav ul{list-style:none;margin:0;padding:0;display:flex;gap:22px}
-  .nav a{text-decoration:none;font-size:14px;color:#dfe6ee}
-  .nav a:hover{color:#fff}
-  .nav .cv{border:1px solid rgba(255,255,255,.35);padding:6px 12px;border-radius:6px}
-  .nav .cv:hover{background:rgba(255,255,255,.1)}
+  /* progress + nav */
+  #bar{position:fixed;left:0;top:0;height:3px;width:0;background:var(--amber-dark);z-index:20;transition:width .12s linear}
+  .nav{position:sticky;top:0;z-index:10;background:rgba(14,26,43,.94);backdrop-filter:blur(8px);color:#fff;border-bottom:1px solid rgba(255,255,255,.09)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .mark{width:30px;height:30px;background:var(--amber-dark);color:var(--ink);font-family:var(--serif);font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:center;border-radius:4px;letter-spacing:-.02em}
+  .brand b{font-family:var(--serif);font-weight:500;font-size:19px;letter-spacing:-.01em}
+  .nav ul{list-style:none;margin:0;padding:0;display:flex;gap:22px;align-items:center}
+  .nav li a{text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#c7cfda;position:relative;padding:4px 0}
+  .nav li a::after{content:"";position:absolute;left:0;bottom:-2px;height:1px;width:0;background:var(--amber-dark);transition:width .25s}
+  .nav li a:hover{color:#fff}.nav li a:hover::after{width:100%}
+  .nav li a.cv{border:1px solid rgba(242,181,107,.6);color:var(--amber-dark);padding:7px 12px;border-radius:3px}
+  .nav li a.cv:hover{background:rgba(242,181,107,.12)}.nav li a.cv::after{display:none}
 
   /* hero */
-  .hero{background:linear-gradient(180deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:72px 0 56px}
-  .hero .kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#a9b7c6;margin:0 0 14px}
-  .hero h1{font-size:clamp(34px,5vw,54px);line-height:1.05;margin:0 0 10px;letter-spacing:-.02em;font-weight:700}
-  .hero .role{font-size:clamp(18px,2.2vw,22px);color:#dfe6ee;margin:0 0 22px;font-weight:500}
-  .hero .lede{max-width:720px;font-size:17px;color:#e6ecf2;margin:0 0 12px}
-  .hero .nda{max-width:720px;font-size:14.5px;color:#a9b7c6;margin:0 0 34px}
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:0 0 30px}
-  .stat{border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:18px 18px 16px;background:rgba(255,255,255,.04)}
-  .stat b{display:block;font-size:34px;line-height:1;color:var(--accent-on-dark);font-weight:700;letter-spacing:-.02em}
-  .stat span{display:block;margin-top:8px;font-size:13.5px;color:#c9d3df;line-height:1.35}
-  .meta-row{display:flex;flex-wrap:wrap;gap:10px 22px;font-size:14px;color:#c9d3df;align-items:center}
-  .meta-row a{color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3)}
-  .pill{display:inline-block;border:1px solid rgba(240,183,117,.55);color:var(--accent-on-dark);border-radius:999px;padding:4px 12px;font-size:13px}
+  .hero{position:relative;background:var(--ink);color:#fff;padding:96px 0 72px;overflow:hidden;isolation:isolate}
+  .hero::before{content:"";position:absolute;inset:0;z-index:-1;
+    background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
+    background-size:48px 48px;
+    -webkit-mask-image:radial-gradient(ellipse 80% 70% at 30% 40%,#000 30%,transparent 100%);mask-image:radial-gradient(ellipse 80% 70% at 30% 40%,#000 30%,transparent 100%)}
+  .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(600px 380px at 88% 90%,rgba(242,181,107,.16),transparent 70%)}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber-dark);margin:0 0 22px;display:flex;align-items:center;gap:12px}
+  .kicker::before{content:"";width:34px;height:1px;background:var(--amber-dark)}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(46px,7.2vw,88px);line-height:.98;letter-spacing:-.025em;margin:0 0 16px;font-variation-settings:"opsz" 144}
+  .hero .role{font-family:var(--serif);font-weight:500;font-size:clamp(20px,2.4vw,27px);color:#dfe4ec;margin:0 0 30px;letter-spacing:-.01em}
+  .hero .role em{color:var(--amber-dark);font-style:normal}
+  .lede{max-width:700px;font-size:18px;color:#e2e7ee;margin:0 0 12px;line-height:1.6}
+  .nda{max-width:700px;font-family:var(--mono);font-size:12.5px;color:#93a0b1;margin:0 0 44px;line-height:1.6}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.14);border-bottom:1px solid rgba(255,255,255,.14);margin:0 0 34px}
+  .stat{padding:22px 22px 20px;border-right:1px solid rgba(255,255,255,.14)}
+  .stat:first-child{padding-left:0}.stat:last-child{border-right:0}
+  .stat b{display:block;font-family:var(--serif);font-weight:600;font-size:clamp(38px,4.6vw,56px);line-height:1;color:var(--amber-dark);letter-spacing:-.03em;font-variation-settings:"opsz" 144}
+  .stat span{display:block;margin-top:10px;font-family:var(--mono);font-size:12px;letter-spacing:.02em;color:#b7c1cf;line-height:1.5}
+  .meta-row{display:flex;flex-wrap:wrap;gap:12px 26px;font-size:14.5px;color:#c7cfda;align-items:center}
+  .meta-row a{color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35);padding-bottom:1px}
+  .meta-row a:hover{border-color:var(--amber-dark)}
+  .pill{font-family:var(--mono);font-size:12px;letter-spacing:.04em;border:1px solid rgba(242,181,107,.6);color:var(--amber-dark);border-radius:999px;padding:6px 13px}
+
+  /* load stagger */
+  .up{opacity:0;transform:translateY(16px);animation:up .7s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes up{to{opacity:1;transform:none}}
+  .d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}.d4{animation-delay:.35s}.d5{animation-delay:.45s}.d6{animation-delay:.6s}.d7{animation-delay:.72s}
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
 
   /* sections */
-  section{padding:64px 0}
-  section + section{border-top:1px solid var(--line)}
-  .label{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 8px}
-  h2{font-size:clamp(26px,3vw,34px);margin:0 0 8px;letter-spacing:-.02em;line-height:1.15}
-  .sub{color:var(--muted);margin:0 0 30px;font-size:16px}
+  section{padding:84px 0}
+  .shead{display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:end;border-bottom:1px solid var(--hair);padding-bottom:18px;margin-bottom:40px}
+  .shead .idx{font-family:var(--serif);font-size:54px;line-height:.9;color:var(--amber);font-weight:500;letter-spacing:-.03em}
+  .shead h2{font-family:var(--serif);font-weight:600;font-size:clamp(30px,3.6vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0 0 6px}
+  .shead p{margin:0;color:var(--muted);font-size:16px}
+  .shead .lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
 
-  /* how I work */
-  .how{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .how div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px}
-  .how h3{margin:0 0 8px;font-size:17px}
-  .how p{margin:0;color:var(--muted);font-size:15px}
-  .how p b{color:var(--ink);font-weight:600}
+  /* how */
+  .how{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--hair)}
+  .how > div{padding:26px 26px 26px 0;border-right:1px solid var(--hair);margin-right:26px}
+  .how > div:last-child{border-right:0;margin-right:0}
+  .how .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--amber);text-transform:uppercase;margin:0 0 10px}
+  .how h3{font-family:var(--serif);font-weight:600;font-size:24px;letter-spacing:-.015em;margin:0 0 10px;line-height:1.15}
+  .how p{margin:0;color:#3b4450;font-size:15.5px}
+  .how p b{color:var(--text);font-weight:600}
 
-  /* project cards */
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:26px 26px 22px;display:flex;flex-direction:column}
-  .card .meta{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 8px}
-  .card h3{font-size:21px;margin:0 0 10px;letter-spacing:-.01em;line-height:1.25}
-  .card p{margin:0 0 14px;color:#33404d;font-size:15px}
-  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
-  .chip{font-size:12.5px;padding:4px 9px;border-radius:999px;background:var(--tint);color:var(--navy2);border:1px solid #d7e0ea}
-  .card ul{margin:0 0 16px;padding-left:18px;font-size:14.5px;color:#33404d}
-  .card li{margin-bottom:6px}
-  .impact{margin-top:auto;border-left:3px solid var(--accent);background:#fff8f0;padding:12px 14px;border-radius:0 8px 8px 0;font-size:14.5px}
-  .impact b{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
-  .num{color:var(--accent);font-weight:700}
+  /* cards */
+  .card{background:var(--card);border:1px solid var(--hair);border-radius:6px;padding:30px 30px 26px;position:relative;display:flex;flex-direction:column;transition:transform .25s ease,box-shadow .25s ease,border-color .25s}
+  .card:hover{transform:translateY(-3px);box-shadow:0 18px 40px -22px rgba(14,26,43,.35);border-color:#c9c2b3}
+  .card .ix{position:absolute;top:22px;right:26px;font-family:var(--serif);font-size:30px;color:#d8d2c4;line-height:1;font-weight:500}
+  .card .meta{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;padding-right:56px}
+  .card h3{font-family:var(--serif);font-weight:600;font-size:26px;letter-spacing:-.015em;line-height:1.15;margin:0 0 12px;padding-right:40px}
+  .card p{margin:0 0 16px;color:#33404d;font-size:15.5px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+  .chip{font-family:var(--mono);font-size:11px;letter-spacing:.04em;padding:4px 9px;border:1px solid var(--hair);border-radius:3px;color:#3b4450;background:#fff}
+  .card ul{list-style:none;margin:0 0 18px;padding:0;font-size:15px;color:#33404d}
+  .card li{position:relative;padding-left:18px;margin-bottom:7px}
+  .card li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;background:var(--amber);border-radius:1px}
+  .impact{margin-top:auto;background:var(--amber-soft);border-left:3px solid var(--amber);padding:14px 16px;border-radius:0 4px 4px 0;font-size:15px;line-height:1.55}
+  .impact b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:5px;font-weight:500}
 
-  /* earlier work */
-  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  .mini{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px}
-  .mini .meta{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 6px}
-  .mini h3{font-size:17px;margin:0 0 8px;line-height:1.3}
-  .mini p{font-size:14px;color:#33404d;margin:0 0 10px}
-  .mini .chips{margin-bottom:10px}
-  .mini .chip{font-size:11.5px;padding:3px 8px}
-  .mini .out{font-size:13.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px;margin:0}
-  .mini .out b{color:var(--ink);font-weight:600}
+  .feature{display:grid;grid-template-columns:1.05fr 1fr;gap:34px;margin-bottom:22px}
+  .feature .card{grid-column:1 / -1;display:grid;grid-template-columns:1fr 1.3fr;gap:34px;padding:34px}
+  .feature .card > .left{display:flex;flex-direction:column;min-width:0}
+  .feature .card > .right{min-width:0;display:flex;flex-direction:column;justify-content:center}
+  .diag{border:1px solid var(--hair);background:#fff;border-radius:4px;padding:14px 12px 10px;overflow-x:auto}
+  .diag svg{display:block;width:100%;height:auto}
+  @media (max-width:960px){.diag svg{min-width:560px}}
+  .diag .cap{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin:10px 4px 0;letter-spacing:.02em}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .wide{grid-column:1 / -1;display:grid;grid-template-columns:1fr 1fr;gap:34px}
+  .wide .left{display:flex;flex-direction:column}
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-self:center}
+  .ba > div{border:1px solid var(--hair);border-radius:4px;padding:18px 18px 16px;background:#fff}
+  .ba .t{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin:0 0 10px}
+  .ba .before .t{color:var(--bad)}.ba .after .t{color:var(--ok)}
+  .ba .big{font-family:var(--serif);font-weight:600;font-size:40px;line-height:1;letter-spacing:-.03em;margin:0 0 6px}
+  .ba .before .big{color:var(--bad)}.ba .after .big{color:var(--ok)}
+  .ba .s{font-size:13.5px;color:#3b4450;margin:0}
+
+  /* ledger */
+  .ledger{border-top:1px solid var(--hair)}
+  .row{display:grid;grid-template-columns:56px 1.1fr 1.6fr 1fr;gap:22px;padding:22px 0;border-bottom:1px solid var(--hair);align-items:start;transition:background .2s}
+  .row:hover{background:rgba(255,253,248,.9)}
+  .row .n{font-family:var(--serif);font-size:22px;color:var(--amber);line-height:1.15;font-weight:500}
+  .row h3{font-family:var(--serif);font-weight:600;font-size:20px;line-height:1.2;margin:0 0 6px;letter-spacing:-.01em}
+  .row .m{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0}
+  .row p{margin:0;font-size:15px;color:#33404d}
+  .row .out{font-size:14px;color:#3b4450}
+  .row .out b{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:4px;font-weight:500}
+  .row .chips{margin:10px 0 0}
 
   /* stack */
-  .stack{border:1px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden}
-  .stack .row{display:grid;grid-template-columns:190px 1fr;gap:16px;padding:14px 20px;border-top:1px solid var(--line);font-size:15px}
-  .stack .row:first-child{border-top:0}
-  .stack .row b{color:var(--navy2);font-weight:600}
-  .stack .row span{color:#33404d}
+  .stack{border-top:1px solid var(--hair)}
+  .stack .r{display:grid;grid-template-columns:200px 1fr;gap:22px;padding:16px 0;border-bottom:1px solid var(--hair);font-size:15.5px}
+  .stack .r b{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text);font-weight:500;padding-top:3px}
+  .stack .r span{color:#33404d}
 
-  /* note + contact */
-  .note{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:22px 24px;color:#33404d;font-size:15px}
-  .note b{color:var(--ink)}
-  .contact{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:start}
-  .contact .big{font-size:clamp(22px,2.6vw,30px);letter-spacing:-.02em;line-height:1.2;margin:0 0 12px}
-  .contact p{margin:0 0 8px;color:var(--muted)}
-  .contact .links{display:flex;flex-direction:column;gap:10px;font-size:16px}
+  /* contact */
+  .contact{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:start}
   .contact > *{min-width:0}
-  .contact .links a{text-decoration:none;color:var(--navy2);border-bottom:1px solid #c7d1dc;width:max-content;max-width:100%;overflow-wrap:anywhere;padding-bottom:2px}
-  .contact .links a:hover{border-color:var(--navy2)}
-  .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-  .btn{display:inline-block;text-decoration:none;padding:10px 16px;border-radius:8px;font-size:14.5px;font-weight:600}
-  .btn.primary{background:var(--navy2);color:#fff}
-  .btn.ghost{border:1px solid var(--line);color:var(--navy2);background:#fff}
-  footer{padding:26px 0 40px;color:var(--muted);font-size:13.5px;border-top:1px solid var(--line)}
+  .contact .big{font-family:var(--serif);font-weight:600;font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:-.025em;margin:0 0 16px}
+  .contact .big em{font-style:italic;font-weight:500;color:var(--amber)}
+  .contact p{margin:0 0 8px;color:var(--muted);font-size:16px}
+  .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .btn{display:inline-block;text-decoration:none;padding:12px 18px;border-radius:3px;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;transition:transform .2s,background .2s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn.primary{background:var(--ink);color:#fff}.btn.primary:hover{background:#1b2d47}
+  .btn.ghost{border:1px solid var(--hair);color:var(--ink);background:#fff}
+  .links{display:flex;flex-direction:column;gap:12px;font-size:16px;padding-top:8px}
+  .links a{text-decoration:none;color:var(--text);width:max-content;max-width:100%;overflow-wrap:anywhere;border-bottom:1px solid var(--hair);padding-bottom:3px;transition:border-color .2s}
+  .links a:hover{border-color:var(--amber)}
+  .links .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
+  .note{border:1px solid var(--hair);background:var(--card);padding:22px 26px;font-size:15px;color:#33404d;margin-top:44px;border-radius:4px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
+  .note .q{font-family:var(--serif);font-size:44px;line-height:.8;color:var(--amber);padding-top:8px}
+  .note b{color:var(--text)}
 
-  @media (max-width:900px){
+  footer{background:var(--ink);color:#93a0b1;padding:34px 0 40px;font-family:var(--mono);font-size:12px;letter-spacing:.03em}
+  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  footer a{color:#dfe4ec;text-decoration:none}
+
+  @media (max-width:960px){
     .stats{grid-template-columns:repeat(2,1fr)}
-    .how,.grid,.grid3{grid-template-columns:1fr}
+    .stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.14)}
+    .stat:nth-child(3){padding-left:0}
+    .how{grid-template-columns:1fr}
+    .how > div{border-right:0;border-bottom:1px solid var(--hair);margin-right:0;padding-left:0}
+    .how > div:last-child{border-bottom:0}
+    .feature .card{grid-template-columns:1fr}
+    .grid{grid-template-columns:1fr}
+    .wide{grid-template-columns:1fr}
+    .row{grid-template-columns:44px 1fr;gap:10px 16px}
+    .row .n{grid-row:1 / span 3}
+    .row > *:not(.n){grid-column:2}
+    .stack .r{grid-template-columns:1fr;gap:6px}
     .contact{grid-template-columns:1fr}
-    .stack .row{grid-template-columns:1fr;gap:4px}
-    .nav ul{gap:14px}
+    .shead{grid-template-columns:1fr;gap:6px}
+    .shead .idx{font-size:40px}
     .nav li.hide{display:none}
   }
-  @media (max-width:520px){
-    .nav .brand span{display:none}
-    .nav .wrap{height:auto;min-height:52px;padding:8px 16px;flex-wrap:wrap;gap:6px 12px}
-    .nav a{white-space:nowrap}
-    .nav .cv{padding:5px 10px}
-    .nav ul{gap:12px;flex-wrap:wrap}
-    .hero{padding:52px 0 40px}
-    .stats{grid-template-columns:1fr 1fr;gap:10px}
-    .stat b{font-size:28px}
-    section{padding:48px 0}
-    .card{padding:20px}
+  @media (max-width:560px){
+    .wrap{padding:0 20px}
+    .hero{padding:64px 0 48px}
+    section{padding:60px 0}
+    .nav .wrap{height:auto;min-height:56px;padding:10px 20px;flex-wrap:wrap;gap:8px 14px}
+    .nav ul{gap:14px;flex-wrap:wrap}
+    .nav li a{white-space:nowrap}
+    .card{padding:22px}
+    .feature .card{padding:22px}
+    .card .ix{top:16px;right:18px;font-size:24px}
+    .ba{grid-template-columns:1fr}
+    .note{grid-template-columns:1fr}
+    .note .q{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .up,.reveal{opacity:1;transform:none;animation:none;transition:none}
+    html{scroll-behavior:auto}
   }
   @media print{
+    #bar,.nav .cv,.btns{display:none}
     .nav{position:static;background:#fff;color:#000;border:0}
-    .nav .cv,.btns{display:none}
-    .hero{background:#fff;color:#000;padding:20px 0}
+    .hero{background:#fff;color:#000;padding:20px 0}.hero::before,.hero::after{display:none}
     .hero .lede,.hero .nda,.hero .role,.meta-row,.stat span{color:#333}
-    .stat{border-color:#bbb}
-    .stat b{color:#000}
-    .grid,.grid3,.how{grid-template-columns:1fr 1fr}
-    .card,.mini,.how div{page-break-inside:avoid}
-    section{padding:24px 0}
+    .stat b,.shead .idx,.kicker{color:#000}
+    .up,.reveal{opacity:1;transform:none;animation:none}
+    .feature .card,.wide{grid-template-columns:1fr}
+    .grid{grid-template-columns:1fr 1fr}
+    .card,.row,.how > div{page-break-inside:avoid}
+    section{padding:26px 0}
+    footer{background:#fff;color:#333}
   }
 </style>
 </head>
 <body>
+<div id="bar" aria-hidden="true"></div>
 
 <nav class="nav">
   <div class="wrap">
-    <a class="brand" href="#top">Willon Smith <span>· AI Engineer</span></a>
+    <a class="brand" href="#top"><span class="mark">WS</span><b>Willon Smith</b></a>
     <ul>
-      <li><a href="#work">Work</a></li>
-      <li class="hide"><a href="#earlier">Earlier</a></li>
-      <li class="hide"><a href="#stack">Stack</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#work">01 Work</a></li>
+      <li class="hide"><a href="#earlier">02 Earlier</a></li>
+      <li class="hide"><a href="#stack">03 Stack</a></li>
+      <li><a href="#contact">04 Contact</a></li>
       <li><a class="cv" href="willon-smith-cv.pdf">Download CV</a></li>
     </ul>
   </div>
@@ -158,22 +234,23 @@
 
 <header class="hero" id="top">
   <div class="wrap">
-    <p class="kicker">Selected work</p>
-    <h1>Willon Smith</h1>
-    <p class="role">AI Engineer &nbsp;|&nbsp; Technical Delivery Lead</p>
-    <p class="lede">Production AI systems, full stack platforms and automation delivered end to end. I pick work up while the business requirement is still unclear and stay with it through architecture, build, deployment and production support.</p>
-    <p class="nda">Client names are withheld under NDA. Every figure on this page was measured in production or in a verified test run.</p>
+    <p class="kicker up d1">Selected work &middot; 2026</p>
+    <h1 class="up d2">Willon Smith</h1>
+    <p class="role up d3">AI Engineer <em>&amp;</em> Technical Delivery Lead</p>
+    <p class="lede up d4">Production AI systems, full stack platforms and automation delivered end to end. I pick work up while the business requirement is still unclear and stay with it through architecture, build, deployment and production support.</p>
+    <p class="nda up d4">Client names are withheld under NDA. Every figure on this page was measured in production or in a verified test run.</p>
 
-    <div class="stats">
+    <div class="stats up d5">
       <div class="stat"><b>7</b><span>UK client businesses delivered for</span></div>
       <div class="stat"><b>260+</b><span>backend tests behind an 85% CI coverage gate</span></div>
       <div class="stat"><b>99.8%</b><span>completion on an 80,000 record AWS ingestion</span></div>
       <div class="stat"><b>0</b><span>errors across a 180 message concurrency regression</span></div>
     </div>
 
-    <div class="meta-row">
-      <span class="pill">Available from October 2026 · Remote · SAST (GMT+2)</span>
+    <div class="meta-row up d6">
+      <span class="pill">Available from October 2026 &middot; Remote &middot; SAST (GMT+2)</span>
       <a href="mailto:willonsmith7@gmail.com">willonsmith7@gmail.com</a>
+      <a href="https://github.com/willon-smith">github.com/willon-smith</a>
       <a href="https://linkedin.com/in/willon-smith-583361164">LinkedIn</a>
       <span>Bloemfontein, South Africa</span>
     </div>
@@ -182,21 +259,25 @@
 
 <section id="how">
   <div class="wrap">
-    <p class="label">How I work</p>
-    <h2>Three things you can check.</h2>
-    <p class="sub">Every claim below is backed by a number further down the page.</p>
-    <div class="how">
+    <div class="shead reveal">
+      <div class="idx">00</div>
+      <div><p class="lbl">How I work</p><h2>Three things you can check.</h2><p>Every claim here is backed by a number further down the page.</p></div>
+    </div>
+    <div class="how reveal">
       <div>
-        <h3>Evidence before release</h3>
-        <p>Nothing I ship goes live on a demo. <b>Tests gate the merge, evaluation suites gate AI releases, and reconciliation checks gate anything with a number on it.</b> 260 backend tests, a 15 case golden eval suite, a 44 check reconciliation.</p>
+        <p class="k">Evidence before release</p>
+        <h3>Nothing I ship goes live on a demo.</h3>
+        <p><b>Tests gate the merge, evaluation suites gate AI releases, and reconciliation checks gate anything with a number on it.</b> 260 backend tests, a 15 case golden eval suite, a 44 check reconciliation.</p>
       </div>
       <div>
-        <h3>Security from the first deploy</h3>
-        <p>Dedicated hardened server per client, Tailscale only admin, spend capped keys and a documented kill switch. <b>I attack my own permission model before a user can find the gap.</b> The last audit found two leak paths; both are closed and covered by regression tests.</p>
+        <p class="k">Security from the first deploy</p>
+        <h3>I attack my own permission model first.</h3>
+        <p>Dedicated hardened server per client, Tailscale only admin, spend capped keys and a documented kill switch. <b>The last audit found two leak paths before a user could;</b> both are closed and covered by regression tests.</p>
       </div>
       <div>
-        <h3>I finish</h3>
-        <p>Two client accounts owned end to end, from discovery through production support. <b>Speed matters, and so does the part after the demo:</b> documentation, monitoring, and a runbook so the work no longer depends on me.</p>
+        <p class="k">I finish</p>
+        <h3>The part after the demo is the job.</h3>
+        <p>Two client accounts owned end to end, from discovery through production support. <b>Speed matters, and so does what follows it:</b> documentation, monitoring, and a runbook so the work no longer depends on me.</p>
       </div>
     </div>
   </div>
@@ -204,28 +285,89 @@
 
 <section id="work">
   <div class="wrap">
-    <p class="label">Current work · 2026</p>
-    <h2>Selected projects</h2>
-    <p class="sub">AI Engineer and Technical Delivery Lead at a UK AI consultancy, April 2026 to present.</p>
+    <div class="shead reveal">
+      <div class="idx">01</div>
+      <div><p class="lbl">Current work &middot; 2026</p><h2>Selected projects</h2><p>AI Engineer and Technical Delivery Lead at a UK AI consultancy, April 2026 to present.</p></div>
+    </div>
+
+    <div class="feature reveal">
+      <article class="card">
+        <div class="left">
+          <span class="ix">01</span>
+          <p class="meta">Full stack platform &middot; Sole engineer &middot; Live in production</p>
+          <h3>Business Operating Platform</h3>
+          <p>A whole business process platform for a UK construction client, replacing spreadsheet and board based tracking. Built from an unclear brief with no requirements document, delivered in vertical slices, each proving value in production before the next began.</p>
+          <div class="chips"><span class="chip">Django</span><span class="chip">DRF</span><span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">PostgreSQL</span><span class="chip">DuckDB</span><span class="chip">Docker</span><span class="chip">GitHub Actions</span></div>
+          <ul>
+            <li>Process engine with approval and evidence gates, including value thresholds that route higher value runs to director approval</li>
+            <li>Four layer, account scoped role based access control, adversarially audited for cross tenant isolation</li>
+            <li>Dynamic form builder reproducing the client's real contract paperwork field for field</li>
+            <li>Analytics warehouse feeding an executive view of spend, exposure and compliance</li>
+          </ul>
+          <div class="impact"><b>Impact</b>Live in production with <span class="num">260+</span> backend tests behind a CI enforced <span class="num">85%</span> coverage gate. The analytics view surfaced roughly <span class="num">&pound;1,700 a week</span> of live plant hire spend and around <span class="num">&pound;600 a week</span> of forgotten off hire charges on its first sync of real data.</div>
+        </div>
+        <div class="right">
+          <div class="diag">
+            <svg viewBox="0 0 656 300" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, Consolas, monospace" role="img" aria-label="Architecture: people and the AI assistant both pass through a four layer permission gate before the application core and database">
+              <defs>
+                <marker id="ah" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#6b7480"/></marker>
+                <marker id="ahA" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#c8781a"/></marker>
+              </defs>
+              <rect x="6" y="22" width="192" height="108" rx="4" fill="#fff" stroke="#cfd3d8"/>
+              <text x="18" y="42" font-size="10" fill="#58606c" letter-spacing="1.2">PEOPLE</text>
+              <g font-size="12" fill="#1c2430" font-family="IBM Plex Sans, sans-serif">
+                <text x="18" y="66">Web app &middot; React</text>
+                <text x="18" y="88">Telegram</text>
+                <text x="18" y="110">WhatsApp</text>
+              </g>
+              <rect x="6" y="156" width="192" height="120" rx="4" fill="#fff" stroke="#c8781a"/>
+              <text x="18" y="176" font-size="10" fill="#c8781a" letter-spacing="1.2">AI ASSISTANT &middot; CLAUDE</text>
+              <g font-size="11.5" fill="#1c2430" font-family="IBM Plex Sans, sans-serif">
+                <text x="18" y="200">Read only, parameterised</text>
+                <text x="18" y="222">Runs as the person asking</text>
+                <text x="18" y="244">Writes need confirmation</text>
+              </g>
+              <rect x="232" y="22" width="192" height="254" rx="4" fill="#0e1a2b"/>
+              <text x="244" y="42" font-size="10" fill="#f2b56b" letter-spacing="1.2">PERMISSION GATE</text>
+              <text x="244" y="57" font-size="9.5" fill="#93a0b1">Every request, human or AI</text>
+              <line x1="244" y1="68" x2="412" y2="68" stroke="rgba(255,255,255,.18)"/>
+              <g font-size="12" fill="#fff" font-family="IBM Plex Sans, sans-serif">
+                <text x="244" y="94"><tspan fill="#f2b56b" font-family="IBM Plex Mono, monospace">1</tspan>  Tenant / account</text>
+                <text x="244" y="136"><tspan fill="#f2b56b" font-family="IBM Plex Mono, monospace">2</tspan>  Role permissions</text>
+                <text x="244" y="178"><tspan fill="#f2b56b" font-family="IBM Plex Mono, monospace">3</tspan>  Team / department</text>
+                <text x="244" y="220"><tspan fill="#f2b56b" font-family="IBM Plex Mono, monospace">4</tspan>  Row and field rules</text>
+              </g>
+              <line x1="244" y1="108" x2="412" y2="108" stroke="rgba(255,255,255,.1)"/>
+              <line x1="244" y1="150" x2="412" y2="150" stroke="rgba(255,255,255,.1)"/>
+              <line x1="244" y1="192" x2="412" y2="192" stroke="rgba(255,255,255,.1)"/>
+              <line x1="244" y1="234" x2="412" y2="234" stroke="rgba(255,255,255,.1)"/>
+              <text x="244" y="262" font-size="9.5" fill="#93a0b1">Filtered in the database</text>
+              <rect x="458" y="22" width="192" height="140" rx="4" fill="#fff" stroke="#cfd3d8"/>
+              <text x="470" y="42" font-size="10" fill="#58606c" letter-spacing="1.2">APPLICATION CORE</text>
+              <g font-size="12" fill="#1c2430" font-family="IBM Plex Sans, sans-serif">
+                <text x="470" y="66">Approval gated processes</text>
+                <text x="470" y="88">Dynamic form builder</text>
+                <text x="470" y="110">Plant hire trackers</text>
+                <text x="470" y="132">Executive analytics</text>
+              </g>
+              <rect x="458" y="200" width="192" height="76" rx="4" fill="#fff" stroke="#cfd3d8"/>
+              <text x="470" y="226" font-size="12" fill="#1c2430" font-family="IBM Plex Sans, sans-serif" font-weight="600">PostgreSQL</text>
+              <text x="470" y="246" font-size="9.5" fill="#58606c">Row and field gates here</text>
+              <line x1="198" y1="76" x2="228" y2="76" stroke="#6b7480" stroke-width="1.5" marker-end="url(#ah)"/>
+              <line x1="198" y1="216" x2="228" y2="216" stroke="#c8781a" stroke-width="1.5" marker-end="url(#ahA)"/>
+              <line x1="424" y1="92" x2="454" y2="92" stroke="#6b7480" stroke-width="1.5" marker-end="url(#ah)"/>
+              <line x1="554" y1="162" x2="554" y2="196" stroke="#6b7480" stroke-width="1.5" marker-end="url(#ah)"/>
+            </svg>
+            <p class="cap">The assistant never has permissions of its own. It runs as the user, through the same four layers as everyone else.</p>
+          </div>
+        </div>
+      </article>
+    </div>
 
     <div class="grid">
-
-      <article class="card">
-        <p class="meta">Full stack platform · Sole engineer · Live in production</p>
-        <h3>Business Operating Platform</h3>
-        <p>A whole business process platform for a UK construction client, replacing spreadsheet and board based tracking. Built from an unclear brief with no requirements document, delivered in vertical slices, each proving value in production before the next began.</p>
-        <div class="chips"><span class="chip">Django</span><span class="chip">DRF</span><span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">PostgreSQL</span><span class="chip">DuckDB</span><span class="chip">Docker</span><span class="chip">GitHub Actions</span></div>
-        <ul>
-          <li>Process engine with approval and evidence gates, including value thresholds that route higher value runs to director approval</li>
-          <li>Four layer, account scoped role based access control, adversarially audited for cross tenant isolation</li>
-          <li>Dynamic form builder reproducing the client's real contract paperwork field for field</li>
-          <li>Analytics warehouse feeding an executive view of spend, exposure and compliance</li>
-        </ul>
-        <div class="impact"><b>Impact</b>Live in production with <span class="num">260+</span> backend tests behind a CI enforced <span class="num">85%</span> coverage gate. The analytics view surfaced roughly <span class="num">&pound;1,700 a week</span> of live plant hire spend and around <span class="num">&pound;600 a week</span> of forgotten off hire charges on its first sync of real data.</div>
-      </article>
-
-      <article class="card">
-        <p class="meta">AI agents · Claude tool calling · Three channels</p>
+      <article class="card reveal">
+        <span class="ix">02</span>
+        <p class="meta">AI agents &middot; Claude tool calling &middot; Three channels</p>
         <h3>Permission Aware Multi Channel AI Assistant</h3>
         <p>An assistant that answers operational questions from company data and raises requests, built so it can never see or do more than the person asking it. One agent core serves every channel, so a new channel inherits the security model instead of re-implementing it.</p>
         <div class="chips"><span class="chip">Claude</span><span class="chip">Anthropic API</span><span class="chip">Python</span><span class="chip">DuckDB</span><span class="chip">Telegram Bot API</span><span class="chip">WhatsApp</span><span class="chip">Django</span></div>
@@ -238,8 +380,9 @@
         <div class="impact"><b>Impact</b>Live across in app, Telegram and WhatsApp. An adversarial permission parity audit found <span class="num">two</span> data leak paths before release. Both were closed and covered with regression tests.</div>
       </article>
 
-      <article class="card">
-        <p class="meta">Data platform · Natural language analytics · Rapid delivery</p>
+      <article class="card reveal">
+        <span class="ix">03</span>
+        <p class="meta">Data platform &middot; Natural language analytics &middot; Rapid delivery</p>
         <h3>Asset Analytics Platform and AI Query Agent</h3>
         <p>A modelled analytics warehouse and portal for a brand activation client working with global drinks brands, with a natural language query agent over the top. Rebuilt for a second brand on the same chassis inside a week to meet a tender deadline.</p>
         <div class="chips"><span class="chip">dbt</span><span class="chip">PostgreSQL</span><span class="chip">Vercel</span><span class="chip">Claude</span><span class="chip">SQL</span><span class="chip">Python</span></div>
@@ -252,8 +395,9 @@
         <div class="impact"><b>Impact</b>A <span class="num">44 check</span> reconciliation, one per on screen figure, verified the entire interface against live SQL before submission. Portal live in <span class="num">ten days</span>; second brand rebuilt in <span class="num">under a week</span>.</div>
       </article>
 
-      <article class="card">
-        <p class="meta">Production automation · Correctness critical send path</p>
+      <article class="card reveal">
+        <span class="ix">04</span>
+        <p class="meta">Production automation &middot; Correctness critical send path</p>
         <h3>Deterministic Email Campaign Engine</h3>
         <p>A client wanted AI writing customer facing emails in a live send path. The brief demanded provable correctness, so I designed a deterministic engine and kept the model out of the path where being wrong is not recoverable. Only the client's own words are ever sent.</p>
         <div class="chips"><span class="chip">n8n</span><span class="chip">Microsoft Graph</span><span class="chip">Airtable</span><span class="chip">JavaScript</span><span class="chip">OAuth 2.0</span></div>
@@ -266,8 +410,9 @@
         <div class="impact"><b>Impact</b>A <span class="num">180 message</span> concurrency regression across four simultaneous campaigns passed with <span class="num">zero</span> wrong name errors and no duplicates before go live.</div>
       </article>
 
-      <article class="card">
-        <p class="meta">Data engineering · Vector search · Infrastructure lifecycle</p>
+      <article class="card reveal">
+        <span class="ix">05</span>
+        <p class="meta">Data engineering &middot; Vector search &middot; Infrastructure lifecycle</p>
         <h3>Large Scale Data Ingestion on AWS</h3>
         <p>Monthly refresh of a five million record image matching database for a consumer application, executed end to end from cost estimate through to clean infrastructure teardown.</p>
         <div class="chips"><span class="chip">AWS ECS</span><span class="chip">RDS</span><span class="chip">pgvector</span><span class="chip">Terraform</span><span class="chip">Celery</span><span class="chip">Python</span><span class="chip">S3</span></div>
@@ -280,79 +425,78 @@
         <div class="impact"><b>Impact</b><span class="num">99.8%</span> completion with before and after evidence for sign off. Root caused a mid run throughput collapse to provider throttling, and documented a repeatable runbook so the process no longer depends on its original author.</div>
       </article>
 
-      <article class="card">
-        <p class="meta">Production support · Observability · Incident response</p>
-        <h3>Production Resilience and Monitoring</h3>
-        <p>Inherited a live automation estate that had suffered an eighteen hour silent outage, with five of seven workflows running with no error alerting at all. Rebuilt the operational layer around it.</p>
-        <div class="chips"><span class="chip">n8n</span><span class="chip">Microsoft Graph</span><span class="chip">Slack</span><span class="chip">Python</span><span class="chip">Grafana</span><span class="chip">Loki</span></div>
-        <ul>
-          <li>Error alerting and heartbeat stuck detection built from scratch, running at zero incremental cost</li>
-          <li>Around fifty integration nodes retry hardened in a single audit pass</li>
-          <li>Fragile polling triggers replaced with scheduled fetch and duplicate detection, structurally removing the stall class</li>
-          <li>Lost records recovered by API driven execution retries</li>
-        </ul>
-        <div class="impact"><b>Impact</b>Recurring stalls eliminated. A stopped workflow is now known within <span class="num">minutes</span>, not <span class="num">18 hours</span>. Monitoring became a standard requirement on every deployment that followed.</div>
+      <article class="card wide reveal">
+        <div class="left">
+          <span class="ix">06</span>
+          <p class="meta">Production support &middot; Observability &middot; Incident response</p>
+          <h3>Production Resilience and Monitoring</h3>
+          <p>Inherited a live automation estate that had suffered an eighteen hour silent outage, with five of seven workflows running with no error alerting at all. Rebuilt the operational layer around it.</p>
+          <div class="chips"><span class="chip">n8n</span><span class="chip">Microsoft Graph</span><span class="chip">Slack</span><span class="chip">Python</span><span class="chip">Grafana</span><span class="chip">Loki</span></div>
+          <ul>
+            <li>Error alerting and heartbeat stuck detection built from scratch, running at zero incremental cost</li>
+            <li>Around fifty integration nodes retry hardened in a single audit pass</li>
+            <li>Fragile polling triggers replaced with scheduled fetch and duplicate detection, structurally removing the stall class</li>
+            <li>Lost records recovered by API driven execution retries</li>
+          </ul>
+          <div class="impact"><b>Impact</b>Recurring stalls eliminated. Monitoring became a standard requirement on every deployment that followed.</div>
+        </div>
+        <div class="ba">
+          <div class="before"><p class="t">Before</p><p class="big">18 h</p><p class="s">before anyone knew a workflow had stopped. Five of seven workflows had no alerting. The first signal was the client asking where their candidates were.</p></div>
+          <div class="after"><p class="t">After</p><p class="big">minutes</p><p class="s">to know a workflow has stopped. Heartbeat monitoring notices the absence of a run, which error alerts never can, because a silent stop produces no error.</p></div>
+        </div>
       </article>
-
     </div>
   </div>
 </section>
 
 <section id="earlier">
   <div class="wrap">
-    <p class="label">Earlier work · 2021 to 2026</p>
-    <h2>Workflow automation and application development</h2>
-    <p class="sub">Built for SME clients across finance, healthcare, industrial services, real estate and professional services.</p>
-
-    <div class="grid3">
-      <div class="mini">
-        <p class="meta">Financial automation · Multi branch</p>
-        <h3>Enterprise Payment Cycle System</h3>
+    <div class="shead reveal">
+      <div class="idx">02</div>
+      <div><p class="lbl">Earlier work &middot; 2021 to 2026</p><h2>Workflow automation and application development</h2><p>Built for SME clients across finance, healthcare, industrial services, real estate and professional services.</p></div>
+    </div>
+    <div class="ledger reveal">
+      <div class="row">
+        <div class="n">07</div>
+        <div><h3>Enterprise Payment Cycle System</h3><p class="m">Financial automation &middot; Multi branch</p><div class="chips"><span class="chip">n8n</span><span class="chip">Sheets API</span><span class="chip">Drive API</span><span class="chip">Webhooks</span></div></div>
         <p>Payment requests, document filing and proof of payment reconciliation across five or more branches, replacing a manual forms and scripts process.</p>
-        <div class="chips"><span class="chip">n8n</span><span class="chip">Google Sheets API</span><span class="chip">Drive API</span><span class="chip">Webhooks</span></div>
-        <p class="out"><b>Outcome.</b> Manual document tracking eliminated across all branches, with an audit trail on every transaction the banking team cross references before approving payment.</p>
+        <p class="out"><b>Outcome</b>Manual document tracking eliminated across all branches, with an audit trail on every transaction the banking team cross references before approving payment.</p>
       </div>
-      <div class="mini">
-        <p class="meta">Email automation · Fraud checks</p>
-        <h3>Automated Proof of Payment Processing</h3>
+      <div class="row">
+        <div class="n">08</div>
+        <div><h3>Automated Proof of Payment Processing</h3><p class="m">Email automation &middot; Fraud checks</p><div class="chips"><span class="chip">n8n</span><span class="chip">IMAP</span><span class="chip">Google Drive</span><span class="chip">Pattern matching</span></div></div>
         <p>Watches branch inboxes for bank proof of payment messages, extracts the payment data, matches it to the original request and files it, with a fraud validation layer and duplicate detection.</p>
-        <div class="chips"><span class="chip">n8n</span><span class="chip">IMAP</span><span class="chip">Google Drive</span><span class="chip">Pattern matching</span></div>
-        <p class="out"><b>Outcome.</b> Manual filing removed and reconciliation cut from hours to minutes, with no missed proofs of payment.</p>
+        <p class="out"><b>Outcome</b>Manual filing removed and reconciliation cut from hours to minutes, with no missed proofs of payment.</p>
       </div>
-      <div class="mini">
-        <p class="meta">AI chatbot · Healthcare operations</p>
-        <h3>AI Care Assistant</h3>
+      <div class="row">
+        <div class="n">09</div>
+        <div><h3>AI Care Assistant</h3><p class="m">AI chatbot &middot; Healthcare operations</p><div class="chips"><span class="chip">Claude</span><span class="chip">n8n</span><span class="chip">Telegram API</span><span class="chip">Google Sheets</span></div></div>
         <p>An assistant for a care facility handling resident communication, vital sign recording, care plan queries and shift summaries, synchronising data across several platforms.</p>
-        <div class="chips"><span class="chip">Claude</span><span class="chip">n8n</span><span class="chip">Telegram API</span><span class="chip">Google Sheets</span></div>
-        <p class="out"><b>Outcome.</b> Reduced administrative load on care staff and improved handover between shifts.</p>
+        <p class="out"><b>Outcome</b>Reduced administrative load on care staff and improved handover between shifts.</p>
       </div>
-      <div class="mini">
-        <p class="meta">Full stack · Multi level approvals</p>
-        <h3>Paycycle and Auditor Application</h3>
+      <div class="row">
+        <div class="n">10</div>
+        <div><h3>Paycycle and Auditor Application</h3><p class="m">Full stack &middot; Multi level approvals</p><div class="chips"><span class="chip">Python</span><span class="chip">Supabase</span><span class="chip">n8n</span><span class="chip">Google APIs</span></div></div>
         <p>Paycycle management and auditing covering the full payment lifecycle from request through approval to audit trail, across multiple branches with role based access.</p>
-        <div class="chips"><span class="chip">Python</span><span class="chip">Supabase</span><span class="chip">n8n</span><span class="chip">Google APIs</span></div>
-        <p class="out"><b>Highlights.</b> Multi level approval workflow, automated document numbering, branch specific configuration on a shared deployment, complete audit history.</p>
+        <p class="out"><b>Highlights</b>Multi level approval workflow, automated document numbering, branch specific configuration on a shared deployment, complete audit history.</p>
       </div>
-      <div class="mini">
-        <p class="meta">Process automation · Industrial services</p>
-        <h3>Workshop Job Card and Costing System</h3>
+      <div class="row">
+        <div class="n">11</div>
+        <div><h3>Workshop Job Card and Costing System</h3><p class="m">Process automation &middot; Industrial services</p><div class="chips"><span class="chip">n8n</span><span class="chip">Google Sheets</span><span class="chip">PDF generation</span><span class="chip">Custom forms</span></div></div>
         <p>Job cards, costing calculations and invoice generation for an industrial services company managing container unpacking and equipment processing across multiple sites.</p>
-        <div class="chips"><span class="chip">n8n</span><span class="chip">Google Sheets</span><span class="chip">PDF generation</span><span class="chip">Custom forms</span></div>
-        <p class="out"><b>Highlights.</b> Work order tracking through completion, automated costing and pricing, tax invoices generated directly from job card data.</p>
+        <p class="out"><b>Highlights</b>Work order tracking through completion, automated costing and pricing, tax invoices generated directly from job card data.</p>
       </div>
-      <div class="mini">
-        <p class="meta">CRM configuration · Reporting automation</p>
-        <h3>CRM and Business Process Suite</h3>
+      <div class="row">
+        <div class="n">12</div>
+        <div><h3>CRM and Business Process Suite</h3><p class="m">CRM configuration &middot; Reporting automation</p><div class="chips"><span class="chip">Monday.com</span><span class="chip">Apps Script</span><span class="chip">AppSheet</span><span class="chip">n8n</span></div></div>
         <p>Monday.com integrated with Google Workspace for project management, reporting and client tracking across multiple clients, plus leave management and a custom Kanban application.</p>
-        <div class="chips"><span class="chip">Monday.com</span><span class="chip">Apps Script</span><span class="chip">AppSheet</span><span class="chip">n8n</span></div>
-        <p class="out"><b>Highlights.</b> Pipelines and automations per client, automated reporting from time tracking data, approval workflow for leave.</p>
+        <p class="out"><b>Highlights</b>Pipelines and automations per client, automated reporting from time tracking data, approval workflow for leave.</p>
       </div>
-      <div class="mini">
-        <p class="meta">Document management · Digitisation</p>
-        <h3>Enterprise Document Management</h3>
+      <div class="row">
+        <div class="n">13</div>
+        <div><h3>Enterprise Document Management</h3><p class="m">Document management &middot; Digitisation</p><div class="chips"><span class="chip">DocuWare</span><span class="chip">Windows Server</span><span class="chip">Merge forms</span></div></div>
         <p>Implemented and administered a document management system for a real estate business, converting paper based processes into routed digital workflows with role based access.</p>
-        <div class="chips"><span class="chip">DocuWare</span><span class="chip">Windows Server</span><span class="chip">Merge forms</span></div>
-        <p class="out"><b>Highlights.</b> Workflow, merge form and web form design, user role structures, documentation and training for adoption.</p>
+        <p class="out"><b>Highlights</b>Workflow, merge form and web form design, user role structures, documentation and training for adoption.</p>
       </div>
     </div>
   </div>
@@ -360,33 +504,33 @@
 
 <section id="stack">
   <div class="wrap">
-    <p class="label">Technical summary</p>
-    <h2>What I build with</h2>
-    <p class="sub">Depth is in the first three rows. The rest is what the work has needed.</p>
-    <div class="stack">
-      <div class="row"><b>AI and LLMs</b><span>Claude and the Anthropic API, Claude Code daily in production, AI agents and tool calling, RAG and retrieval pipelines, embeddings and vector search, prompt caching, multi tier model routing, golden evaluation suites</span></div>
-      <div class="row"><b>Languages</b><span>Python, TypeScript, JavaScript, SQL, HTML and CSS, Google Apps Script</span></div>
-      <div class="row"><b>Frameworks</b><span>Django and Django REST Framework, FastAPI, Flask, React, Node.js</span></div>
-      <div class="row"><b>Data</b><span>PostgreSQL, pgvector, DuckDB, dbt, MongoDB Atlas, Supabase, warehouse modelling, reconciliation frameworks</span></div>
-      <div class="row"><b>Cloud and infra</b><span>AWS (ECS, RDS, S3), Terraform, Docker, GitHub Actions, Vercel, Neon, Render, Hetzner, Linux server hardening</span></div>
-      <div class="row"><b>Observability</b><span>Grafana, Loki, heartbeat monitoring, alerting, incident response, spend controls and kill switches</span></div>
-      <div class="row"><b>Automation</b><span>n8n at depth, webhooks, IMAP triggers, scheduled workflows, API integration, circuit breakers and idempotency</span></div>
-      <div class="row"><b>Integrations</b><span>Microsoft Graph and Outlook, Business Central OData, Monday.com, Airtable, Linear, Telegram Bot API, Twilio and WhatsApp, Google Workspace</span></div>
-      <div class="row"><b>Security</b><span>OAuth 2.0, role based access control design, database role fencing, least privilege, adversarial permission testing</span></div>
+    <div class="shead reveal">
+      <div class="idx">03</div>
+      <div><p class="lbl">Technical summary</p><h2>What I build with</h2><p>Depth is in the first three rows. The rest is what the work has needed.</p></div>
+    </div>
+    <div class="stack reveal">
+      <div class="r"><b>AI and LLMs</b><span>Claude and the Anthropic API, Claude Code daily in production, AI agents and tool calling, RAG and retrieval pipelines, embeddings and vector search, prompt caching, multi tier model routing, golden evaluation suites</span></div>
+      <div class="r"><b>Languages</b><span>Python, TypeScript, JavaScript, SQL, HTML and CSS, Google Apps Script</span></div>
+      <div class="r"><b>Frameworks</b><span>Django and Django REST Framework, FastAPI, Flask, React, Node.js</span></div>
+      <div class="r"><b>Data</b><span>PostgreSQL, pgvector, DuckDB, dbt, MongoDB Atlas, Supabase, warehouse modelling, reconciliation frameworks</span></div>
+      <div class="r"><b>Cloud and infra</b><span>AWS (ECS, RDS, S3), Terraform, Docker, GitHub Actions, Vercel, Neon, Render, Hetzner, Linux server hardening</span></div>
+      <div class="r"><b>Observability</b><span>Grafana, Loki, heartbeat monitoring, alerting, incident response, spend controls and kill switches</span></div>
+      <div class="r"><b>Automation</b><span>n8n at depth, webhooks, IMAP triggers, scheduled workflows, API integration, circuit breakers and idempotency</span></div>
+      <div class="r"><b>Integrations</b><span>Microsoft Graph and Outlook, Business Central OData, Monday.com, Airtable, Linear, Telegram Bot API, Twilio and WhatsApp, Google Workspace</span></div>
+      <div class="r"><b>Security</b><span>OAuth 2.0, role based access control design, database role fencing, least privilege, adversarial permission testing</span></div>
     </div>
   </div>
 </section>
 
 <section id="contact">
   <div class="wrap">
-    <div class="note" style="margin-bottom:34px">
-      <b>A note on this page.</b> Client identities are withheld under NDA and no client system, screenshot or live link is reproduced here. Every metric quoted was measured in production or in a verified test run. Where work was led by a colleague and I contributed, this page does not claim it. I am happy to go deeper on the engineering behind any of it.
+    <div class="shead reveal">
+      <div class="idx">04</div>
+      <div><p class="lbl">Contact</p><h2>If you want to see how any of this was built, <em style="font-style:italic;font-weight:500;color:var(--amber)">ask.</em></h2></div>
     </div>
-    <div class="contact">
+    <div class="contact reveal">
       <div>
-        <p class="label">Contact</p>
-        <p class="big">If you want to see how any of this was built, ask.</p>
-        <p>Remote, based in Bloemfontein, South Africa. SAST (GMT+2), with strong UK and European hours overlap.</p>
+        <p>Remote, based in Bloemfontein, South Africa. SAST (GMT+2), with strong UK and European hours overlap. Happy to go deeper on the engineering behind any project on this page.</p>
         <div class="btns">
           <a class="btn primary" href="mailto:willonsmith7@gmail.com">Email me</a>
           <a class="btn ghost" href="willon-smith-cv.pdf">Download CV</a>
@@ -394,17 +538,36 @@
         </div>
       </div>
       <div class="links">
-        <a href="mailto:willonsmith7@gmail.com">willonsmith7@gmail.com</a>
-        <a href="tel:+27797061500">+27 79 706 1500</a>
-        <a href="https://linkedin.com/in/willon-smith-583361164">linkedin.com/in/willon-smith-583361164</a>
+        <a href="mailto:willonsmith7@gmail.com"><span class="l">Email</span>willonsmith7@gmail.com</a>
+        <a href="tel:+27797061500"><span class="l">Phone</span>+27 79 706 1500</a>
+        <a href="https://github.com/willon-smith"><span class="l">GitHub</span>github.com/willon-smith</a>
+        <a href="https://linkedin.com/in/willon-smith-583361164"><span class="l">LinkedIn</span>linkedin.com/in/willon-smith-583361164</a>
       </div>
+    </div>
+    <div class="note reveal">
+      <div class="q">&ldquo;</div>
+      <div><b>A note on this page.</b> Client identities are withheld under NDA and no client system, screenshot or live link is reproduced here. Every metric quoted was measured in production or in a verified test run. Where work was led by a colleague and I contributed, this page does not claim it.</div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="wrap">Willon Smith · AI Engineer and Technical Delivery Lead · Bloemfontein, South Africa</div>
+  <div class="wrap">
+    <span>Willon Smith &middot; AI Engineer and Technical Delivery Lead &middot; Bloemfontein, South Africa</span>
+    <span><a href="https://github.com/willon-smith">GitHub</a> &nbsp;&middot;&nbsp; <a href="https://linkedin.com/in/willon-smith-583361164">LinkedIn</a> &nbsp;&middot;&nbsp; <a href="mailto:willonsmith7@gmail.com">Email</a></span>
+  </div>
 </footer>
 
+<script>
+(function(){
+  var bar=document.getElementById('bar');
+  function prog(){var h=document.documentElement;var p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);bar.style.width=(p*100)+'%';}
+  window.addEventListener('scroll',prog,{passive:true});prog();
+  var els=[].slice.call(document.querySelectorAll('.reveal'));
+  if(!('IntersectionObserver' in window)||window.matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('in');});return;}
+  var io=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+  els.forEach(function(e){io.observe(e);});
+})();
+</script>
 </body>
 </html>
