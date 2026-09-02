@@ -99,7 +99,8 @@
   .contact .big{font-size:clamp(22px,2.6vw,30px);letter-spacing:-.02em;line-height:1.2;margin:0 0 12px}
   .contact p{margin:0 0 8px;color:var(--muted)}
   .contact .links{display:flex;flex-direction:column;gap:10px;font-size:16px}
-  .contact .links a{text-decoration:none;color:var(--navy2);border-bottom:1px solid #c7d1dc;width:max-content;padding-bottom:2px}
+  .contact > *{min-width:0}
+  .contact .links a{text-decoration:none;color:var(--navy2);border-bottom:1px solid #c7d1dc;width:max-content;max-width:100%;overflow-wrap:anywhere;padding-bottom:2px}
   .contact .links a:hover{border-color:var(--navy2)}
   .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
   .btn{display:inline-block;text-decoration:none;padding:10px 16px;border-radius:8px;font-size:14.5px;font-weight:600}
@@ -117,10 +118,10 @@
   }
   @media (max-width:520px){
     .nav .brand span{display:none}
-    .nav li.mobile-hide{display:none}
+    .nav .wrap{height:auto;min-height:52px;padding:8px 16px;flex-wrap:wrap;gap:6px 12px}
     .nav a{white-space:nowrap}
     .nav .cv{padding:5px 10px}
-    .nav ul{gap:12px}
+    .nav ul{gap:12px;flex-wrap:wrap}
     .hero{padding:52px 0 40px}
     .stats{grid-template-columns:1fr 1fr;gap:10px}
     .stat b{font-size:28px}
@@ -149,7 +150,7 @@
       <li><a href="#work">Work</a></li>
       <li class="hide"><a href="#earlier">Earlier</a></li>
       <li class="hide"><a href="#stack">Stack</a></li>
-      <li class="mobile-hide"><a href="#contact">Contact</a></li>
+      <li><a href="#contact">Contact</a></li>
       <li><a class="cv" href="willon-smith-cv.pdf">Download CV</a></li>
     </ul>
   </div>
