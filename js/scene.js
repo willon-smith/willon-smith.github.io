@@ -70,13 +70,12 @@ void main(){
   float d = distance(p.xz, uMouse);
   float m = exp(-d*d*0.45) * uMouseStrength;
   p.y = n + ridge + m * 1.1;
-  p.y *= 1.0 + uScroll * 2.2;
-  p.x *= 1.0 + uScroll * 0.9;
-  p.z += uScroll * 2.5;
+  // scroll: the waves surge while the camera dives into the field
+  p.y *= 1.0 + uScroll * 1.7;
   vec4 mv = modelViewMatrix * vec4(p, 1.0);
   gl_Position = projectionMatrix * mv;
-  float size = (1.9 + aRand * 1.5 + m * 4.5 + smoothstep(0.2, 0.9, n + ridge) * 1.2) * uPixelRatio;
-  gl_PointSize = size * (6.0 / max(-mv.z, 0.5));
+  float size = (1.9 + aRand * 1.5 + m * 4.5 + smoothstep(0.2, 0.9, n + ridge) * 1.2) * uPixelRatio * (1.0 + uScroll * 0.6);
+  gl_PointSize = min(size * (6.0 / max(-mv.z, 0.5)), 26.0 * uPixelRatio);
   vH = n + ridge + m;
   vDepth = -mv.z;
   vGlow = m;
@@ -101,7 +100,7 @@ void main(){
   float h = clamp(vH * 0.95 + 0.42, 0.0, 1.0);
   vec3 col = mix(uColorC, uColorB, h);
   col = mix(col, uColorA, smoothstep(0.58, 1.0, h) * 0.95 + vGlow * 0.9);
-  float fog = smoothstep(16.0, 4.0, vDepth);
+  float fog = smoothstep(16.0, 4.0, vDepth) * smoothstep(0.2, 1.4, vDepth);
   float alpha = a * (0.28 + 0.72 * h) * fog * uFade * (0.55 + 0.45 * vRand);
   gl_FragColor = vec4(col, alpha);
 }`;
@@ -204,9 +203,9 @@ export function initScene(canvas, { reduce = false, mobile = false } = {}) {
     parallax.y += (parallax.ty - parallax.y) * 0.04;
     const s = uniforms.uScroll.value;
     camera.position.x = camBase.x + parallax.x * 0.35;
-    camera.position.y = camBase.y + parallax.y * 0.18 + s * 3.2;
-    camera.position.z = camBase.z + s * 2.0;
-    camera.lookAt(0, 0.25 + s * 1.2, -0.5);
+    camera.position.y = camBase.y + parallax.y * 0.18 - s * 1.0;
+    camera.position.z = camBase.z - s * 2.6;
+    camera.lookAt(0, 0.25 + s * 0.35, -0.5);
     points.rotation.y = -0.12 + Math.sin(t * 0.05) * 0.04;
     renderer.render(scene, camera);
     raf = requestAnimationFrame(frame);

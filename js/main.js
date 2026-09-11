@@ -10,9 +10,11 @@ ScrollTrigger.config({ ignoreMobileResize: true });
 const html = document.documentElement;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fine = matchMedia('(pointer: fine)').matches;
-const mobile = matchMedia('(max-width: 820px)').matches;
+const mobileMQ = matchMedia('(max-width: 820px)');
+const mobile = mobileMQ.matches;
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const NAV_OFFSET = 94; // nav height + sticky gap, mirrors --nav-h + 18px in the CSS
 
 /* ---------- smooth scroll ---------- */
 let lenis = null;
@@ -39,13 +41,93 @@ const sceneReady = import('./scene.js')
   .then(m => { scene = m.initScene($('#scene'), { reduce, mobile }); })
   .catch(() => { $('#scene').remove(); });
 
+/* ---------- hero scroll: pin only when the hero fits the viewport ---------- */
+const heroEl = $('.hero');
+let heroCtx = null, heroMode = null;
+function heroFits() { return !mobileMQ.matches && heroEl.offsetHeight <= window.innerHeight + 2; }
+function setupHero() {
+  if (reduce) return;
+  const mode = heroFits() ? 'pin' : 'flow';
+  if (mode === heroMode) return;
+  heroMode = mode;
+  if (heroCtx) heroCtx.revert();
+  heroCtx = gsap.context(() => {
+    if (mode === 'pin') {
+      // one trigger pins the hero and drives the fade, so the fade runs during the pin
+      const tl = gsap.timeline({
+        defaults: { ease: 'none' },
+        scrollTrigger: {
+          trigger: heroEl, start: 'top top', end: '+=65%', pin: true, scrub: true, refreshPriority: 2,
+          onUpdate: s => {
+            const p = s.progress;
+            scene.setScroll(p);
+            // the field stays bright while it spreads, then fades in the last third of the pin
+            scene.setFade(p < .65 ? 1 : 1 - ((p - .65) / .35) * .88);
+          },
+        },
+      });
+      tl.to('.hero__foot', { autoAlpha: 0, duration: .35 }, 0)
+        .to('.hero__inner', { y: -110, autoAlpha: 0, duration: .75 }, 0)
+        .to({}, { duration: 1 }, 0);
+    } else {
+      ScrollTrigger.create({
+        trigger: heroEl, start: 'top top', end: 'bottom top', scrub: true, refreshPriority: 2,
+        onUpdate: s => { scene.setScroll(s.progress * .6); scene.setFade(1 - s.progress); },
+      });
+    }
+    ScrollTrigger.create({
+      trigger: heroEl, start: 'top top', end: '+=200%', refreshPriority: 1,
+      onLeave: () => scene.pause(), onEnterBack: () => scene.resume(),
+    });
+  });
+  // triggers created earlier must still be pushed by the pin distance
+  ScrollTrigger.sort();
+}
+
+/* ---------- work: stacking cards, only when every card fits under the nav ---------- */
+const stackEl = $('.stack');
+let stackCtx = null, stackMode = null;
+function setupStack() {
+  if (!stackEl) return;
+  const cards = $$('.work-card');
+  const limit = window.innerHeight - NAV_OFFSET - 24;
+  stackEl.classList.toggle('stack--flat', cards.some(c => c.offsetHeight > limit));
+  const mode = getComputedStyle(cards[0]).position === 'sticky' ? 'stack' : 'flat';
+  if (mode === stackMode) return;
+  stackMode = mode;
+  if (stackCtx) { stackCtx.revert(); stackCtx = null; }
+  if (mode !== 'stack' || reduce) return;
+  stackCtx = gsap.context(() => {
+    cards.forEach((card, i) => {
+      const next = cards[i + 1];
+      if (!next) return;
+      gsap.to(card, {
+        scale: .93, '--dim': .7, ease: 'none',
+        scrollTrigger: { trigger: next, start: 'top bottom', end: 'top ' + NAV_OFFSET + 'px', scrub: true },
+      });
+    });
+  });
+  ScrollTrigger.sort();
+}
+
+// the hero pin exists before any other trigger is created
+setupHero();
+
+let resizeTimer = 0;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => { setupHero(); setupStack(); ScrollTrigger.sort(); ScrollTrigger.refresh(); }, 250);
+});
+
 /* ---------- preloader + hero intro ---------- */
 const pre = $('.preloader');
 const heroBits = ['.hero .eyebrow', '.hero__lead', '.hero__cta .btn', '.hero__foot > *', '.nav'];
 let heroSplit = null;
+const fontsReady = (document.fonts ? document.fonts.ready : Promise.resolve());
 
 if (reduce) {
   pre.remove();
+  fontsReady.then(() => { setupStack(); ScrollTrigger.sort(); ScrollTrigger.refresh(); });
 } else {
   lenis.stop();
   gsap.set(heroBits, { autoAlpha: 0 });
@@ -58,9 +140,8 @@ if (reduce) {
     gsap.set(bar, { scaleX: c.v / 100 });
   } });
   const minWait = new Promise(r => setTimeout(r, 1700));
-  const fonts = (document.fonts ? document.fonts.ready : Promise.resolve());
   const cap = new Promise(r => setTimeout(r, 3500));
-  Promise.race([Promise.all([minWait, fonts, sceneReady]), cap]).then(() => {
+  Promise.race([Promise.all([minWait, fontsReady, sceneReady]), cap]).then(() => {
     heroSplit = SplitText.create('.hero__title', { type: 'lines', linesClass: 'line' });
     gsap.set('.hero__title', { autoAlpha: 1 });
     gsap.set(heroSplit.lines, { yPercent: 90, autoAlpha: 0, rotateX: -22, transformOrigin: '0% 100%' });
@@ -68,6 +149,9 @@ if (reduce) {
       pre.remove();
       if (heroSplit) { heroSplit.revert(); heroSplit = null; }
       lenis.start();
+      setupHero();
+      setupStack();
+      ScrollTrigger.sort();
       ScrollTrigger.refresh();
     } });
     tl.to('.preloader__inner', { y: -30, autoAlpha: 0, duration: .5, ease: 'power2.in' })
@@ -78,27 +162,6 @@ if (reduce) {
       .to('.hero__cta .btn', { autoAlpha: 1, duration: .7, stagger: .08 }, '-=.75')
       .to('.hero__foot > *', { autoAlpha: 1, duration: .7, stagger: .08 }, '-=.5')
       .to('.nav', { autoAlpha: 1, duration: .8 }, '-=.9');
-  });
-}
-
-/* ---------- hero scroll: pin, scrub the scene, fade content ---------- */
-if (!reduce) {
-  if (!mobile) {
-    ScrollTrigger.create({
-      trigger: '.hero', start: 'top top', end: '+=70%', pin: true, scrub: true,
-      onUpdate: s => { scene.setScroll(s.progress); scene.setFade(1 - s.progress * .92); },
-    });
-    gsap.to('.hero__inner', { y: -90, autoAlpha: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=55%', scrub: true } });
-    gsap.to('.hero__foot', { autoAlpha: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=30%', scrub: true } });
-  } else {
-    ScrollTrigger.create({
-      trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true,
-      onUpdate: s => { scene.setScroll(s.progress * .6); scene.setFade(1 - s.progress); },
-    });
-  }
-  ScrollTrigger.create({
-    trigger: '.hero', start: 'top top', end: '+=200%',
-    onLeave: () => scene.pause(), onEnterBack: () => scene.resume(),
   });
 }
 
@@ -116,7 +179,7 @@ if (!reduce) {
       scrollTrigger: { trigger: group, start: 'top 88%', once: true },
     });
   });
-  document.fonts.ready.then(() => {
+  fontsReady.then(() => {
     $$('[data-split]').forEach(el => {
       SplitText.create(el, {
         type: 'lines', autoSplit: true,
@@ -145,19 +208,6 @@ $$('[data-count]').forEach(el => {
     onEnter() { const o = { v: 0 }; gsap.to(o, { v: target, duration: 1.8, ease: 'power3.out', onUpdate: () => { el.textContent = fmt(o.v); } }); },
   });
 });
-
-/* ---------- work: stacking cards ---------- */
-if (!reduce && !mobile) {
-  const cards = $$('.work-card');
-  cards.forEach((card, i) => {
-    const next = cards[i + 1];
-    if (!next) return;
-    gsap.to(card, {
-      scale: .93, autoAlpha: .35, ease: 'none',
-      scrollTrigger: { trigger: next, start: 'top bottom', end: 'top 94px', scrub: true },
-    });
-  });
-}
 
 /* ---------- spotlight, tilt, magnetic, cursor ---------- */
 if (fine && !reduce) {
@@ -188,11 +238,13 @@ if (fine && !reduce) {
     html.classList.add('has-cursor');
     const dot = $('.cursor__dot'), ring = $('.cursor__ring');
     let x = innerWidth / 2, y = innerHeight / 2, rx = x, ry = y;
-    window.addEventListener('pointermove', e => { x = e.clientX; y = e.clientY; gsap.set(dot, { x, y }); }, { passive: true });
+    window.addEventListener('pointermove', e => { x = e.clientX; y = e.clientY; gsap.set(dot, { x, y }); html.classList.add('cursor-in'); }, { passive: true });
     gsap.ticker.add(() => { rx += (x - rx) * .16; ry += (y - ry) * .16; gsap.set(ring, { x: rx, y: ry }); });
     const hot = 'a, button, .pnode, [data-cursor]';
     document.addEventListener('pointerover', e => { if (e.target.closest(hot)) ring.classList.add('is-hover'); });
     document.addEventListener('pointerout', e => { if (e.target.closest(hot)) ring.classList.remove('is-hover'); });
+    document.addEventListener('mouseleave', () => html.classList.remove('cursor-in'));
+    document.addEventListener('mouseenter', () => html.classList.add('cursor-in'));
   }
 }
 
@@ -284,4 +336,4 @@ if (sphereCanvas) {
   }));
 }
 
-window.addEventListener('load', () => ScrollTrigger.refresh());
+window.addEventListener('load', () => { setupHero(); setupStack(); ScrollTrigger.sort(); ScrollTrigger.refresh(); });
