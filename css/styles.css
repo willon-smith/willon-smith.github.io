@@ -34,7 +34,7 @@ html.lenis,html.lenis body{height:auto}
 body{
   margin:0;background:var(--bg);color:var(--text);
   font-family:var(--body);font-size:1.04rem;line-height:1.62;
-  -webkit-font-smoothing:antialiased;overflow-x:clip;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;overflow-x:clip;
 }
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
@@ -108,7 +108,9 @@ em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0}
 .btn svg{width:16px;height:16px}
 
 /* ------- layout helpers ------- */
-main{position:relative;z-index:2}
+/* clip, not hidden: rotating decorations must not widen the mobile layout viewport, and clip keeps sticky and pinning intact */
+main{position:relative;z-index:2;overflow-x:clip}
+.footer{overflow-x:clip}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
 section{position:relative}
 .sec{padding:clamp(88px,12vw,160px) 0}
