@@ -1,573 +1,600 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Willon Smith · AI Engineer</title>
-<meta name="description" content="Willon Smith. AI Engineer and Technical Delivery Lead. Production AI systems, full stack platforms and automation delivered end to end.">
+<meta name="description" content="Willon Smith, AI Engineer and Technical Delivery Lead. Production AI agents, full stack platforms and automation, owned from the first brief through deployment and support.">
+<link rel="canonical" href="https://willon-smith.github.io/">
+<meta name="theme-color" content="#07080c">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Willon Smith · AI Engineer">
+<meta property="og:description" content="AI systems that hold up in production. Agents, platforms and automation delivered end to end.">
+<meta property="og:url" content="https://willon-smith.github.io/">
+<meta property="og:image" content="https://willon-smith.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Willon Smith · AI Engineer">
+<meta name="twitter:description" content="AI systems that hold up in production. Agents, platforms and automation delivered end to end.">
+<meta name="twitter:image" content="https://willon-smith.github.io/assets/og.png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#0e1a2b; --ink2:#132238; --paper:#f4f1ea; --card:#fffdf8; --text:#1c2430; --muted:#58606c;
-    --hair:#d9d4c8; --hair2:#e8e3d8; --amber:#c8781a; --amber-dark:#f2b56b; --amber-soft:#fbf1e3;
-    --ok:#1f7a4d; --bad:#b3261e;
-    --serif:"Fraunces",Georgia,"Times New Roman",serif;
-    --sans:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
-    --mono:"IBM Plex Mono",Consolas,"Courier New",monospace;
-    --max:1120px;
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:var(--paper);color:var(--text);font-family:var(--sans);font-size:16.5px;line-height:1.55;-webkit-font-smoothing:antialiased;font-feature-settings:"tnum" 1}
-  a{color:inherit}
-  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
-  .mono{font-family:var(--mono)}
-  .num{color:var(--amber);font-weight:600;font-family:var(--mono)}
-
-  /* progress + nav */
-  #bar{position:fixed;left:0;top:0;height:3px;width:0;background:var(--amber-dark);z-index:20;transition:width .12s linear}
-  .nav{position:sticky;top:0;z-index:10;background:rgba(14,26,43,.94);backdrop-filter:blur(8px);color:#fff;border-bottom:1px solid rgba(255,255,255,.09)}
-  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
-  .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-  .mark{width:30px;height:30px;background:var(--amber-dark);color:var(--ink);font-family:var(--serif);font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:center;border-radius:4px;letter-spacing:-.02em}
-  .brand b{font-family:var(--serif);font-weight:500;font-size:19px;letter-spacing:-.01em}
-  .nav ul{list-style:none;margin:0;padding:0;display:flex;gap:22px;align-items:center}
-  .nav li a{text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#c7cfda;position:relative;padding:4px 0}
-  .nav li a::after{content:"";position:absolute;left:0;bottom:-2px;height:1px;width:0;background:var(--amber-dark);transition:width .25s}
-  .nav li a:hover{color:#fff}.nav li a:hover::after{width:100%}
-  .nav li a.cv{border:1px solid rgba(242,181,107,.6);color:var(--amber-dark);padding:7px 12px;border-radius:3px}
-  .nav li a.cv:hover{background:rgba(242,181,107,.12)}.nav li a.cv::after{display:none}
-
-  /* hero */
-  .hero{position:relative;background:var(--ink);color:#fff;padding:96px 0 72px;overflow:hidden;isolation:isolate}
-  .hero::before{content:"";position:absolute;inset:0;z-index:-1;
-    background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
-    background-size:48px 48px;
-    -webkit-mask-image:radial-gradient(ellipse 80% 70% at 30% 40%,#000 30%,transparent 100%);mask-image:radial-gradient(ellipse 80% 70% at 30% 40%,#000 30%,transparent 100%)}
-  .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(600px 380px at 88% 90%,rgba(242,181,107,.16),transparent 70%)}
-  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber-dark);margin:0 0 22px;display:flex;align-items:center;gap:12px}
-  .kicker::before{content:"";width:34px;height:1px;background:var(--amber-dark)}
-  .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(46px,7.2vw,88px);line-height:.98;letter-spacing:-.025em;margin:0 0 16px;font-variation-settings:"opsz" 144}
-  .hero .role{font-family:var(--serif);font-weight:500;font-size:clamp(20px,2.4vw,27px);color:#dfe4ec;margin:0 0 30px;letter-spacing:-.01em}
-  .hero .role em{color:var(--amber-dark);font-style:normal}
-  .lede{max-width:700px;font-size:18px;color:#e2e7ee;margin:0 0 12px;line-height:1.6}
-  .nda{max-width:700px;font-family:var(--mono);font-size:12.5px;color:#93a0b1;margin:0 0 44px;line-height:1.6}
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.14);border-bottom:1px solid rgba(255,255,255,.14);margin:0 0 34px}
-  .stat{padding:22px 22px 20px;border-right:1px solid rgba(255,255,255,.14)}
-  .stat:first-child{padding-left:0}.stat:last-child{border-right:0}
-  .stat b{display:block;font-family:var(--serif);font-weight:600;font-size:clamp(38px,4.6vw,56px);line-height:1;color:var(--amber-dark);letter-spacing:-.03em;font-variation-settings:"opsz" 144}
-  .stat span{display:block;margin-top:10px;font-family:var(--mono);font-size:12px;letter-spacing:.02em;color:#b7c1cf;line-height:1.5}
-  .meta-row{display:flex;flex-wrap:wrap;gap:12px 26px;font-size:14.5px;color:#c7cfda;align-items:center}
-  .meta-row a{color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35);padding-bottom:1px}
-  .meta-row a:hover{border-color:var(--amber-dark)}
-  .pill{font-family:var(--mono);font-size:12px;letter-spacing:.04em;border:1px solid rgba(242,181,107,.6);color:var(--amber-dark);border-radius:999px;padding:6px 13px}
-
-  /* load stagger */
-  .up{opacity:0;transform:translateY(16px);animation:up .7s cubic-bezier(.2,.7,.2,1) forwards}
-  @keyframes up{to{opacity:1;transform:none}}
-  .d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}.d4{animation-delay:.35s}.d5{animation-delay:.45s}.d6{animation-delay:.6s}.d7{animation-delay:.72s}
-  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
-  .reveal.in{opacity:1;transform:none}
-
-  /* sections */
-  section{padding:84px 0}
-  .shead{display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:end;border-bottom:1px solid var(--hair);padding-bottom:18px;margin-bottom:40px}
-  .shead .idx{font-family:var(--serif);font-size:54px;line-height:.9;color:var(--amber);font-weight:500;letter-spacing:-.03em}
-  .shead h2{font-family:var(--serif);font-weight:600;font-size:clamp(30px,3.6vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0 0 6px}
-  .shead p{margin:0;color:var(--muted);font-size:16px}
-  .shead .lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
-
-  /* how */
-  .how{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--hair)}
-  .how > div{padding:26px 26px 26px 0;border-right:1px solid var(--hair);margin-right:26px}
-  .how > div:last-child{border-right:0;margin-right:0}
-  .how .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--amber);text-transform:uppercase;margin:0 0 10px}
-  .how h3{font-family:var(--serif);font-weight:600;font-size:24px;letter-spacing:-.015em;margin:0 0 10px;line-height:1.15}
-  .how p{margin:0;color:#3b4450;font-size:15.5px}
-  .how p b{color:var(--text);font-weight:600}
-
-  /* cards */
-  .card{background:var(--card);border:1px solid var(--hair);border-radius:6px;padding:30px 30px 26px;position:relative;display:flex;flex-direction:column;transition:transform .25s ease,box-shadow .25s ease,border-color .25s}
-  .card:hover{transform:translateY(-3px);box-shadow:0 18px 40px -22px rgba(14,26,43,.35);border-color:#c9c2b3}
-  .card .ix{position:absolute;top:22px;right:26px;font-family:var(--serif);font-size:30px;color:#d8d2c4;line-height:1;font-weight:500}
-  .card .meta{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;padding-right:56px}
-  .card h3{font-family:var(--serif);font-weight:600;font-size:26px;letter-spacing:-.015em;line-height:1.15;margin:0 0 12px;padding-right:40px}
-  .card p{margin:0 0 16px;color:#33404d;font-size:15.5px}
-  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
-  .chip{font-family:var(--mono);font-size:11px;letter-spacing:.04em;padding:4px 9px;border:1px solid var(--hair);border-radius:3px;color:#3b4450;background:#fff}
-  .card ul{list-style:none;margin:0 0 18px;padding:0;font-size:15px;color:#33404d}
-  .card li{position:relative;padding-left:18px;margin-bottom:7px}
-  .card li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;background:var(--amber);border-radius:1px}
-  .impact{margin-top:auto;background:var(--amber-soft);border-left:3px solid var(--amber);padding:14px 16px;border-radius:0 4px 4px 0;font-size:15px;line-height:1.55}
-  .impact b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:5px;font-weight:500}
-
-  .feature{display:grid;grid-template-columns:1.05fr 1fr;gap:34px;margin-bottom:22px}
-  .feature .card{grid-column:1 / -1;display:grid;grid-template-columns:1fr 1.3fr;gap:34px;padding:34px}
-  .feature .card > .left{display:flex;flex-direction:column;min-width:0}
-  .feature .card > .right{min-width:0;display:flex;flex-direction:column;justify-content:center}
-  .diag{border:1px solid var(--hair);background:#fff;border-radius:4px;padding:14px 12px 10px;overflow-x:auto}
-  .diag svg{display:block;width:100%;height:auto}
-  @media (max-width:960px){.diag svg{min-width:560px}}
-  .diag .cap{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin:10px 4px 0;letter-spacing:.02em}
-
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-  .wide{grid-column:1 / -1;display:grid;grid-template-columns:1fr 1fr;gap:34px}
-  .wide .left{display:flex;flex-direction:column}
-  .ba{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-self:center}
-  .ba > div{border:1px solid var(--hair);border-radius:4px;padding:18px 18px 16px;background:#fff}
-  .ba .t{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin:0 0 10px}
-  .ba .before .t{color:var(--bad)}.ba .after .t{color:var(--ok)}
-  .ba .big{font-family:var(--serif);font-weight:600;font-size:40px;line-height:1;letter-spacing:-.03em;margin:0 0 6px}
-  .ba .before .big{color:var(--bad)}.ba .after .big{color:var(--ok)}
-  .ba .s{font-size:13.5px;color:#3b4450;margin:0}
-
-  /* ledger */
-  .ledger{border-top:1px solid var(--hair)}
-  .row{display:grid;grid-template-columns:56px 1.1fr 1.6fr 1fr;gap:22px;padding:22px 0;border-bottom:1px solid var(--hair);align-items:start;transition:background .2s}
-  .row:hover{background:rgba(255,253,248,.9)}
-  .row .n{font-family:var(--serif);font-size:22px;color:var(--amber);line-height:1.15;font-weight:500}
-  .row h3{font-family:var(--serif);font-weight:600;font-size:20px;line-height:1.2;margin:0 0 6px;letter-spacing:-.01em}
-  .row .m{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0}
-  .row p{margin:0;font-size:15px;color:#33404d}
-  .row .out{font-size:14px;color:#3b4450}
-  .row .out b{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:4px;font-weight:500}
-  .row .chips{margin:10px 0 0}
-
-  /* stack */
-  .stack{border-top:1px solid var(--hair)}
-  .stack .r{display:grid;grid-template-columns:200px 1fr;gap:22px;padding:16px 0;border-bottom:1px solid var(--hair);font-size:15.5px}
-  .stack .r b{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text);font-weight:500;padding-top:3px}
-  .stack .r span{color:#33404d}
-
-  /* contact */
-  .contact{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:start}
-  .contact > *{min-width:0}
-  .contact .big{font-family:var(--serif);font-weight:600;font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:-.025em;margin:0 0 16px}
-  .contact .big em{font-style:italic;font-weight:500;color:var(--amber)}
-  .contact p{margin:0 0 8px;color:var(--muted);font-size:16px}
-  .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-  .btn{display:inline-block;text-decoration:none;padding:12px 18px;border-radius:3px;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;transition:transform .2s,background .2s}
-  .btn:hover{transform:translateY(-1px)}
-  .btn.primary{background:var(--ink);color:#fff}.btn.primary:hover{background:#1b2d47}
-  .btn.ghost{border:1px solid var(--hair);color:var(--ink);background:#fff}
-  .links{display:flex;flex-direction:column;gap:12px;font-size:16px;padding-top:8px}
-  .links a{text-decoration:none;color:var(--text);width:max-content;max-width:100%;overflow-wrap:anywhere;border-bottom:1px solid var(--hair);padding-bottom:3px;transition:border-color .2s}
-  .links a:hover{border-color:var(--amber)}
-  .links .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
-  .note{border:1px solid var(--hair);background:var(--card);padding:22px 26px;font-size:15px;color:#33404d;margin-top:44px;border-radius:4px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
-  .note .q{font-family:var(--serif);font-size:44px;line-height:.8;color:var(--amber);padding-top:8px}
-  .note b{color:var(--text)}
-
-  footer{background:var(--ink);color:#93a0b1;padding:34px 0 40px;font-family:var(--mono);font-size:12px;letter-spacing:.03em}
-  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-  footer a{color:#dfe4ec;text-decoration:none}
-
-  @media (max-width:960px){
-    .stats{grid-template-columns:repeat(2,1fr)}
-    .stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.14)}
-    .stat:nth-child(3){padding-left:0}
-    .how{grid-template-columns:1fr}
-    .how > div{border-right:0;border-bottom:1px solid var(--hair);margin-right:0;padding-left:0}
-    .how > div:last-child{border-bottom:0}
-    .feature .card{grid-template-columns:1fr}
-    .grid{grid-template-columns:1fr}
-    .wide{grid-template-columns:1fr}
-    .row{grid-template-columns:44px 1fr;gap:10px 16px}
-    .row .n{grid-row:1 / span 3}
-    .row > *:not(.n){grid-column:2}
-    .stack .r{grid-template-columns:1fr;gap:6px}
-    .contact{grid-template-columns:1fr}
-    .shead{grid-template-columns:1fr;gap:6px}
-    .shead .idx{font-size:40px}
-    .nav li.hide{display:none}
-  }
-  @media (max-width:560px){
-    .wrap{padding:0 20px}
-    .hero{padding:64px 0 48px}
-    section{padding:60px 0}
-    .nav .wrap{height:auto;min-height:56px;padding:10px 20px;flex-wrap:wrap;gap:8px 14px}
-    .nav ul{gap:14px;flex-wrap:wrap}
-    .nav li a{white-space:nowrap}
-    .card{padding:22px}
-    .feature .card{padding:22px}
-    .card .ix{top:16px;right:18px;font-size:24px}
-    .ba{grid-template-columns:1fr}
-    .note{grid-template-columns:1fr}
-    .note .q{display:none}
-  }
-  @media (prefers-reduced-motion:reduce){
-    .up,.reveal{opacity:1;transform:none;animation:none;transition:none}
-    html{scroll-behavior:auto}
-  }
-  @media print{
-    #bar,.nav .cv,.btns{display:none}
-    .nav{position:static;background:#fff;color:#000;border:0}
-    .hero{background:#fff;color:#000;padding:20px 0}.hero::before,.hero::after{display:none}
-    .hero .lede,.hero .nda,.hero .role,.meta-row,.stat span{color:#333}
-    .stat b,.shead .idx,.kicker{color:#000}
-    .up,.reveal{opacity:1;transform:none;animation:none}
-    .feature .card,.wide{grid-template-columns:1fr}
-    .grid{grid-template-columns:1fr 1fr}
-    .card,.row,.how > div{page-break-inside:avoid}
-    section{padding:26px 0}
-    footer{background:#fff;color:#333}
-  }
-</style>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300..800&family=Inter:wght@400;500&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<script>document.documentElement.classList.replace('no-js','js')</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.min.js"}}</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Willon Smith","jobTitle":"AI Engineer and Technical Delivery Lead","url":"https://willon-smith.github.io/","email":"mailto:willonsmith7@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Bloemfontein","addressCountry":"ZA"},"sameAs":["https://linkedin.com/in/willon-smith-583361164","https://github.com/willon-smith"],"knowsAbout":["AI agents","Claude","n8n","Python","Django","React","TypeScript","PostgreSQL","AWS","Terraform"]}
+</script>
 </head>
 <body>
-<div id="bar" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
 
-<nav class="nav">
-  <div class="wrap">
-    <a class="brand" href="#top"><span class="mark">WS</span><b>Willon Smith</b></a>
-    <ul>
-      <li><a href="#work">01 Work</a></li>
-      <li class="hide"><a href="#earlier">02 Earlier</a></li>
-      <li class="hide"><a href="#stack">03 Stack</a></li>
-      <li><a href="#contact">04 Contact</a></li>
-      <li><a class="cv" href="willon-smith-cv.pdf">Download CV</a></li>
-    </ul>
+<div class="preloader" aria-hidden="true">
+  <div class="preloader__inner">
+    <div class="preloader__mark">WS</div>
+    <div class="preloader__count">000</div>
+    <div class="preloader__bar"><i></i></div>
+    <div class="preloader__hint mono">Willon Smith · AI Engineer</div>
   </div>
-</nav>
+</div>
 
-<header class="hero" id="top">
-  <div class="wrap">
-    <p class="kicker up d1">Selected work &middot; 2026</p>
-    <h1 class="up d2">Willon Smith</h1>
-    <p class="role up d3">AI Engineer <em>&amp;</em> Technical Delivery Lead</p>
-    <p class="lede up d4">Production AI systems, full stack platforms and automation delivered end to end. I pick work up while the business requirement is still unclear and stay with it through architecture, build, deployment and production support.</p>
-    <p class="nda up d4">Client names are withheld under NDA. Every figure on this page was measured in production or in a verified test run.</p>
+<div class="cursor" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__ring"></div></div>
+<div class="progress" aria-hidden="true"></div>
+<canvas id="scene" aria-hidden="true"></canvas>
+<div class="mesh" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="grain" aria-hidden="true"></div>
 
-    <div class="stats up d5">
-      <div class="stat"><b>7</b><span>UK client businesses delivered for</span></div>
-      <div class="stat"><b>260+</b><span>backend tests behind an 85% CI coverage gate</span></div>
-      <div class="stat"><b>99.8%</b><span>completion on an 80,000 record AWS ingestion</span></div>
-      <div class="stat"><b>0</b><span>errors across a 180 message concurrency regression</span></div>
-    </div>
-
-    <div class="meta-row up d6">
-      <span class="pill">Available from October 2026 &middot; Remote &middot; SAST (GMT+2)</span>
-      <a href="mailto:willonsmith7@gmail.com">willonsmith7@gmail.com</a>
-      <a href="https://github.com/willon-smith">github.com/willon-smith</a>
-      <a href="https://linkedin.com/in/willon-smith-583361164">LinkedIn</a>
-      <span>Bloemfontein, South Africa</span>
-    </div>
+<header class="nav">
+  <div class="nav__inner">
+    <a class="brand" href="#top"><span class="brand__mark">WS</span><span>Willon Smith</span></a>
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#system">System</a>
+      <a href="#stack">Stack</a>
+      <a href="#experience">Experience</a>
+      <a href="#about">About</a>
+    </nav>
+    <div class="nav__status"><span class="dot"></span>Open from Oct 2026</div>
+    <a class="btn btn--sm magnetic" href="#contact">Get in touch</a>
   </div>
 </header>
 
-<section id="how">
-  <div class="wrap">
-    <div class="shead reveal">
-      <div class="idx">00</div>
-      <div><p class="lbl">How I work</p><h2>Three things you can check.</h2><p>Every claim here is backed by a number further down the page.</p></div>
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="hero__inner">
+    <p class="eyebrow"><span class="eyebrow__name">Willon Smith</span><span class="sep"></span>AI Engineer &amp; Technical Delivery Lead</p>
+    <h1 class="hero__title">AI systems that <em>hold up</em> in production.</h1>
+    <div class="hero__row">
+      <p class="hero__lead">Production agents, full stack platforms and automation, owned from the first unclear brief through architecture, build, deployment and the support that follows. Currently leading delivery on two client accounts for a UK AI consultancy.</p>
+      <div class="hero__cta">
+        <a class="btn btn--primary magnetic" href="#work">See the work</a>
+        <a class="btn magnetic" href="#contact">Get in touch</a>
+      </div>
     </div>
-    <div class="how reveal">
-      <div>
-        <p class="k">Evidence before release</p>
-        <h3>Nothing I ship goes live on a demo.</h3>
-        <p><b>Tests gate the merge, evaluation suites gate AI releases, and reconciliation checks gate anything with a number on it.</b> 260 backend tests, a 15 case golden eval suite, a 44 check reconciliation.</p>
-      </div>
-      <div>
-        <p class="k">Security from the first deploy</p>
-        <h3>I attack my own permission model first.</h3>
-        <p>Dedicated hardened server per client, Tailscale only admin, spend capped keys and a documented kill switch. <b>The last audit found two leak paths before a user could;</b> both are closed and covered by regression tests.</p>
-      </div>
-      <div>
-        <p class="k">I finish</p>
-        <h3>The part after the demo is the job.</h3>
-        <p>Two client accounts owned end to end, from discovery through production support. <b>Speed matters, and so does what follows it:</b> documentation, monitoring, and a runbook so the work no longer depends on me.</p>
-      </div>
+  </div>
+  <div class="hero__foot">
+    <a class="pill" href="#contact"><span class="dot"></span>Open to remote roles from October 2026</a>
+    <p class="hero__meta mono"><span>Bloemfontein, South Africa</span><span>SAST · <time data-local-time>--:--</time></span></p>
+    <div class="scroll-cue mono"><span>Scroll</span><i></i></div>
+  </div>
+</section>
+
+<!-- ================= MARQUEE ================= -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>Claude</span><span>Anthropic API</span><span>Claude Code</span><span>n8n</span><span>Python</span><span>Django</span><span>FastAPI</span><span>TypeScript</span><span>React</span><span>Node.js</span><span>PostgreSQL</span><span>pgvector</span><span>DuckDB</span><span>dbt</span><span>AWS</span><span>Terraform</span><span>Docker</span><span>Microsoft Graph</span><span>Business Central</span><span>Grafana</span><span>Loki</span><span>Tailscale</span><span>OAuth 2.0</span>
+    <span>Claude</span><span>Anthropic API</span><span>Claude Code</span><span>n8n</span><span>Python</span><span>Django</span><span>FastAPI</span><span>TypeScript</span><span>React</span><span>Node.js</span><span>PostgreSQL</span><span>pgvector</span><span>DuckDB</span><span>dbt</span><span>AWS</span><span>Terraform</span><span>Docker</span><span>Microsoft Graph</span><span>Business Central</span><span>Grafana</span><span>Loki</span><span>Tailscale</span><span>OAuth 2.0</span>
+  </div>
+</div>
+
+<!-- ================= METRICS ================= -->
+<section class="metrics">
+  <div class="wrap">
+    <div class="metrics__grid" data-reveal-group>
+      <div class="metric"><b><span data-count="7">0</span></b><span>UK client businesses delivered for, across construction, distribution, brand activation, recruitment and consumer software</span></div>
+      <div class="metric"><b><span data-count="260">0</span><small>+</small></b><span>backend tests behind an 85% CI enforced coverage gate</span></div>
+      <div class="metric"><b><span data-count="99.8" data-decimals="1">0</span><small>%</small></b><span>completion on an 80,000 record AWS ingestion into RDS pgvector</span></div>
+      <div class="metric"><b><span data-count="0">0</span></b><span>wrong name errors across a 180 message concurrency regression before go live</span></div>
+      <div class="metric"><b><span data-count="1726" data-prefix="£">0</span></b><span>a week of live plant hire spend surfaced on the first sync of real data</span></div>
+      <div class="metric"><b><small>&lt;</small><span data-count="3">0</span><small>s</small></b><span>upload response time on a document RAG app, down from hangs of five minutes or more</span></div>
     </div>
   </div>
 </section>
 
-<section id="work">
+<!-- ================= PROCESS ================= -->
+<section class="sec process" id="process">
   <div class="wrap">
-    <div class="shead reveal">
-      <div class="idx">01</div>
-      <div><p class="lbl">Current work &middot; 2026</p><h2>Selected projects</h2><p>AI Engineer and Technical Delivery Lead at a UK AI consultancy, April 2026 to present.</p></div>
+    <div class="sec-head">
+      <span class="sec-head__idx">01 / How I work</span>
+      <h2 data-split>Three things you can <em>check.</em></h2>
+      <p class="sec-head__lead" data-reveal>Every claim on this page is backed by a number further down it.</p>
+    </div>
+    <div class="principles" data-reveal-group>
+      <article class="principle glass">
+        <span class="principle__n">01 · Evidence before release</span>
+        <h3>Nothing I ship goes live on a <em>demo.</em></h3>
+        <p>Tests gate the merge, evaluation suites gate AI releases, and reconciliation checks gate anything with a number on it.</p>
+        <div class="principle__proof"><span>260 backend tests, 85% CI coverage gate</span><span>15 case golden evaluation suite</span><span>44 check reconciliation, one per figure on screen</span></div>
+      </article>
+      <article class="principle glass">
+        <span class="principle__n">02 · Security from the first deploy</span>
+        <h3>I attack my own permission model <em>first.</em></h3>
+        <p>Dedicated hardened server per client, Tailscale only admin access, spend capped keys and a documented kill switch. The last audit found two leak paths before a user could; both are closed and covered by regression tests.</p>
+        <div class="principle__proof"><span>Two data leak paths found and closed before release</span><span>10 point security baseline on every client surface</span><span>Three tier LLM routing after one agent reached $50 a day</span></div>
+      </article>
+      <article class="principle glass">
+        <span class="principle__n">03 · I finish</span>
+        <h3>The part after the demo is the <em>job.</em></h3>
+        <p>Two client accounts owned end to end, from discovery through production support. Speed matters, and so does what follows it: documentation, monitoring, and a runbook so the work no longer depends on me.</p>
+        <div class="principle__proof"><span>Heartbeat monitoring after an 18 hour silent outage</span><span>Runbooks written for the next engineer</span><span>Seven client businesses, two accounts owned outright</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WORK ================= -->
+<section class="sec work" id="work">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-head__idx">02 / Selected work</span>
+      <h2 data-split>Built for businesses that depend on it <em>daily.</em></h2>
+      <p class="sec-head__lead" data-reveal>Client names are withheld under NDA. Every figure here was measured in production or in a verified test run.</p>
     </div>
 
-    <div class="feature reveal">
-      <article class="card">
-        <div class="left">
-          <span class="ix">01</span>
-          <p class="meta">Full stack platform &middot; Sole engineer &middot; Live in production</p>
-          <h3>Business Operating Platform</h3>
-          <p>A whole business process platform for a UK construction client, replacing spreadsheet and board based tracking. Built from an unclear brief with no requirements document, delivered in vertical slices, each proving value in production before the next began.</p>
-          <div class="chips"><span class="chip">Django</span><span class="chip">DRF</span><span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">PostgreSQL</span><span class="chip">DuckDB</span><span class="chip">Docker</span><span class="chip">GitHub Actions</span></div>
-          <ul>
-            <li>Process engine with approval and evidence gates, including value thresholds that route higher value runs to director approval</li>
-            <li>Four layer, account scoped role based access control, adversarially audited for cross tenant isolation</li>
-            <li>Dynamic form builder reproducing the client's real contract paperwork field for field</li>
-            <li>Analytics warehouse feeding an executive view of spend, exposure and compliance</li>
-          </ul>
-          <div class="impact"><b>Impact</b>Live in production with <span class="num">260+</span> backend tests behind a CI enforced <span class="num">85%</span> coverage gate. The analytics view surfaced roughly <span class="num">&pound;1,700 a week</span> of live plant hire spend and around <span class="num">&pound;600 a week</span> of forgotten off hire charges on its first sync of real data.</div>
-        </div>
-        <div class="right">
-          <div class="diag">
-            <svg viewBox="0 0 656 300" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, Consolas, monospace" role="img" aria-label="Architecture: people and the AI assistant both pass through a four layer permission gate before the application core and database">
-              <defs>
-                <marker id="ah" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#6b7480"/></marker>
-                <marker id="ahA" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#c8781a"/></marker>
-              </defs>
-              <rect x="6" y="22" width="192" height="108" rx="4" fill="#fff" stroke="#cfd3d8"/>
-              <text x="18" y="42" font-size="10" fill="#58606c" letter-spacing="1.2">PEOPLE</text>
-              <g font-size="12" fill="#1c2430" font-family="IBM Plex Sans, sans-serif">
-                <text x="18" y="66">Web app &middot; React</text>
-                <text x="18" y="88">Telegram</text>
-                <text x="18" y="110">WhatsApp</text>
-              </g>
-              <rect x="6" y="156" width="192" height="120" rx="4" fill="#fff" stroke="#c8781a"/>
-              <text x="18" y="176" font-size="10" fill="#c8781a" letter-spacing="1.2">AI ASSISTANT &middot; CLAUDE</text>
-              <g font-size="11.5" fill="#1c2430" font-family="IBM Plex Sans, sans-serif">
-                <text x="18" y="200">Read only, parameterised</text>
-                <text x="18" y="222">Runs as the person asking</text>
-                <text x="18" y="244">Writes need confirmation</text>
-              </g>
-              <rect x="232" y="22" width="192" height="254" rx="4" fill="#0e1a2b"/>
-              <text x="244" y="42" font-size="10" fill="#f2b56b" letter-spacing="1.2">PERMISSION GATE</text>
-              <text x="244" y="57" font-size="9.5" fill="#93a0b1">Every request, human or AI</text>
-              <line x1="244" y1="68" x2="412" y2="68" stroke="rgba(255,255,255,.18)"/>
-              <g font-size="12" fill="#fff" font-family="IBM Plex Sans, sans-serif">
-                <text x="244" y="94"><tspan fill="#f2b56b" font-family="IBM Plex Mono, monospace">1</tspan>  Tenant / account</text>
-                <text x="244" y="136"><tspan fill="#f2b56b" font-family="IBM Plex Mono, monospace">2</tspan>  Role permissions</text>
-                <text x="244" y="178"><tspan fill="#f2b56b" font-family="IBM Plex Mono, monospace">3</tspan>  Team / department</text>
-                <text x="244" y="220"><tspan fill="#f2b56b" font-family="IBM Plex Mono, monospace">4</tspan>  Row and field rules</text>
-              </g>
-              <line x1="244" y1="108" x2="412" y2="108" stroke="rgba(255,255,255,.1)"/>
-              <line x1="244" y1="150" x2="412" y2="150" stroke="rgba(255,255,255,.1)"/>
-              <line x1="244" y1="192" x2="412" y2="192" stroke="rgba(255,255,255,.1)"/>
-              <line x1="244" y1="234" x2="412" y2="234" stroke="rgba(255,255,255,.1)"/>
-              <text x="244" y="262" font-size="9.5" fill="#93a0b1">Filtered in the database</text>
-              <rect x="458" y="22" width="192" height="140" rx="4" fill="#fff" stroke="#cfd3d8"/>
-              <text x="470" y="42" font-size="10" fill="#58606c" letter-spacing="1.2">APPLICATION CORE</text>
-              <g font-size="12" fill="#1c2430" font-family="IBM Plex Sans, sans-serif">
-                <text x="470" y="66">Approval gated processes</text>
-                <text x="470" y="88">Dynamic form builder</text>
-                <text x="470" y="110">Plant hire trackers</text>
-                <text x="470" y="132">Executive analytics</text>
-              </g>
-              <rect x="458" y="200" width="192" height="76" rx="4" fill="#fff" stroke="#cfd3d8"/>
-              <text x="470" y="226" font-size="12" fill="#1c2430" font-family="IBM Plex Sans, sans-serif" font-weight="600">PostgreSQL</text>
-              <text x="470" y="246" font-size="9.5" fill="#58606c">Row and field gates here</text>
-              <line x1="198" y1="76" x2="228" y2="76" stroke="#6b7480" stroke-width="1.5" marker-end="url(#ah)"/>
-              <line x1="198" y1="216" x2="228" y2="216" stroke="#c8781a" stroke-width="1.5" marker-end="url(#ahA)"/>
-              <line x1="424" y1="92" x2="454" y2="92" stroke="#6b7480" stroke-width="1.5" marker-end="url(#ah)"/>
-              <line x1="554" y1="162" x2="554" y2="196" stroke="#6b7480" stroke-width="1.5" marker-end="url(#ah)"/>
-            </svg>
-            <p class="cap">The assistant never has permissions of its own. It runs as the user, through the same four layers as everyone else.</p>
+    <div class="stack">
+
+      <article class="work-card">
+        <div class="work-card__head"><span class="work-card__index">01 / 06</span><p class="work-card__tags">Full stack platform · Sole engineer · Live in production</p></div>
+        <div class="work-card__body">
+          <div class="work-card__main">
+            <h3>Business Operating Platform</h3>
+            <p class="work-card__desc">A whole business process platform for a UK construction client, replacing spreadsheet and board based tracking. Built from an unclear brief with no requirements document, delivered in vertical slices, each proving value in production before the next began.</p>
+            <ul class="work-card__points">
+              <li>Process engine with approval and evidence gates, including value thresholds that route higher value runs to director approval</li>
+              <li>Four layer, account scoped role based access control, adversarially audited for cross tenant isolation</li>
+              <li>Dynamic form builder reproducing the client's real contract paperwork field for field</li>
+              <li>Analytics warehouse feeding an executive view of spend, exposure and compliance</li>
+            </ul>
           </div>
+          <aside class="work-card__side">
+            <div class="impact">
+              <span class="impact__label mono">Impact</span>
+              <div class="impact__grid">
+                <div><b>260+</b><span>backend tests, 85% CI coverage gate</span></div>
+                <div><b>£1,726</b><span>a week of live plant hire spend surfaced</span></div>
+                <div><b>£600</b><span>a week of forgotten off hire charges found</span></div>
+                <div><b>Live</b><span>in production, used by directors daily</span></div>
+              </div>
+              <p>The analytics view surfaced the spend on its first sync of real data, replacing manual spreadsheet tracking with phone editable trackers.</p>
+            </div>
+            <ul class="chips"><li>Django</li><li>DRF</li><li>React</li><li>TypeScript</li><li>PostgreSQL</li><li>DuckDB</li><li>Docker</li><li>GitHub Actions</li></ul>
+          </aside>
         </div>
       </article>
-    </div>
 
-    <div class="grid">
-      <article class="card reveal">
-        <span class="ix">02</span>
-        <p class="meta">AI agents &middot; Claude tool calling &middot; Three channels</p>
-        <h3>Permission Aware Multi Channel AI Assistant</h3>
-        <p>An assistant that answers operational questions from company data and raises requests, built so it can never see or do more than the person asking it. One agent core serves every channel, so a new channel inherits the security model instead of re-implementing it.</p>
-        <div class="chips"><span class="chip">Claude</span><span class="chip">Anthropic API</span><span class="chip">Python</span><span class="chip">DuckDB</span><span class="chip">Telegram Bot API</span><span class="chip">WhatsApp</span><span class="chip">Django</span></div>
-        <ul>
-          <li>Guarded read only SQL layer with view allowlists and per tenant query rewriting</li>
-          <li>Write actions require explicit user confirmation before executing</li>
-          <li>Agent permissions inherit platform identity, so the model cannot exceed the initiating user's authority</li>
-          <li>Charts and answers returned in channel, including image to record capture using vision</li>
-        </ul>
-        <div class="impact"><b>Impact</b>Live across in app, Telegram and WhatsApp. An adversarial permission parity audit found <span class="num">two</span> data leak paths before release. Both were closed and covered with regression tests.</div>
-      </article>
-
-      <article class="card reveal">
-        <span class="ix">03</span>
-        <p class="meta">Data platform &middot; Natural language analytics &middot; Rapid delivery</p>
-        <h3>Asset Analytics Platform and AI Query Agent</h3>
-        <p>A modelled analytics warehouse and portal for a brand activation client working with global drinks brands, with a natural language query agent over the top. Rebuilt for a second brand on the same chassis inside a week to meet a tender deadline.</p>
-        <div class="chips"><span class="chip">dbt</span><span class="chip">PostgreSQL</span><span class="chip">Vercel</span><span class="chip">Claude</span><span class="chip">SQL</span><span class="chip">Python</span></div>
-        <ul>
-          <li>Live portal delivered within ten days of project confirmation</li>
-          <li>Query agent fenced by a least privilege read only database role, with tests proving the fence holds</li>
-          <li>Release gated by a fifteen case golden evaluation suite that blocks on failure</li>
-          <li>Fully isolated schemas per brand with a no cross access role model</li>
-        </ul>
-        <div class="impact"><b>Impact</b>A <span class="num">44 check</span> reconciliation, one per on screen figure, verified the entire interface against live SQL before submission. Portal live in <span class="num">ten days</span>; second brand rebuilt in <span class="num">under a week</span>.</div>
-      </article>
-
-      <article class="card reveal">
-        <span class="ix">04</span>
-        <p class="meta">Production automation &middot; Correctness critical send path</p>
-        <h3>Deterministic Email Campaign Engine</h3>
-        <p>A client wanted AI writing customer facing emails in a live send path. The brief demanded provable correctness, so I designed a deterministic engine and kept the model out of the path where being wrong is not recoverable. Only the client's own words are ever sent.</p>
-        <div class="chips"><span class="chip">n8n</span><span class="chip">Microsoft Graph</span><span class="chip">Airtable</span><span class="chip">JavaScript</span><span class="chip">OAuth 2.0</span></div>
-        <ul>
-          <li>An 89 node legacy workflow re-architected into a four workflow system: campaign portal, follow up engine, reply and bounce handling, live monitoring</li>
-          <li>Code enforced guardrails: hard follow up cap, per run circuit breaker, per recipient cooldown, duplicate stage guard</li>
-          <li>An assertion that throws before sending if the greeting does not match the recipient</li>
-          <li>Bounce and out of office detection so only genuine delivery failures stop a sequence</li>
-        </ul>
-        <div class="impact"><b>Impact</b>A <span class="num">180 message</span> concurrency regression across four simultaneous campaigns passed with <span class="num">zero</span> wrong name errors and no duplicates before go live.</div>
-      </article>
-
-      <article class="card reveal">
-        <span class="ix">05</span>
-        <p class="meta">Data engineering &middot; Vector search &middot; Infrastructure lifecycle</p>
-        <h3>Large Scale Data Ingestion on AWS</h3>
-        <p>Monthly refresh of a five million record image matching database for a consumer application, executed end to end from cost estimate through to clean infrastructure teardown.</p>
-        <div class="chips"><span class="chip">AWS ECS</span><span class="chip">RDS</span><span class="chip">pgvector</span><span class="chip">Terraform</span><span class="chip">Celery</span><span class="chip">Python</span><span class="chip">S3</span></div>
-        <ul>
-          <li>Filtered a 10.3 GB, 19.2 million record dataset to a candidate set, diffed against the live database</li>
-          <li>Ran an 80,000 record ingestion on ECS workers against RDS with pgvector HNSW indexing</li>
-          <li>Wrote a streaming parser sustaining around 8,000 records per second, memory safe on a constrained host</li>
-          <li>Infrastructure raised and torn down per run via targeted Terraform applies to avoid destructive drift</li>
-        </ul>
-        <div class="impact"><b>Impact</b><span class="num">99.8%</span> completion with before and after evidence for sign off. Root caused a mid run throughput collapse to provider throttling, and documented a repeatable runbook so the process no longer depends on its original author.</div>
-      </article>
-
-      <article class="card wide reveal">
-        <div class="left">
-          <span class="ix">06</span>
-          <p class="meta">Production support &middot; Observability &middot; Incident response</p>
-          <h3>Production Resilience and Monitoring</h3>
-          <p>Inherited a live automation estate that had suffered an eighteen hour silent outage, with five of seven workflows running with no error alerting at all. Rebuilt the operational layer around it.</p>
-          <div class="chips"><span class="chip">n8n</span><span class="chip">Microsoft Graph</span><span class="chip">Slack</span><span class="chip">Python</span><span class="chip">Grafana</span><span class="chip">Loki</span></div>
-          <ul>
-            <li>Error alerting and heartbeat stuck detection built from scratch, running at zero incremental cost</li>
-            <li>Around fifty integration nodes retry hardened in a single audit pass</li>
-            <li>Fragile polling triggers replaced with scheduled fetch and duplicate detection, structurally removing the stall class</li>
-            <li>Lost records recovered by API driven execution retries</li>
-          </ul>
-          <div class="impact"><b>Impact</b>Recurring stalls eliminated. Monitoring became a standard requirement on every deployment that followed.</div>
-        </div>
-        <div class="ba">
-          <div class="before"><p class="t">Before</p><p class="big">18 h</p><p class="s">before anyone knew a workflow had stopped. Five of seven workflows had no alerting. The first signal was the client asking where their candidates were.</p></div>
-          <div class="after"><p class="t">After</p><p class="big">minutes</p><p class="s">to know a workflow has stopped. Heartbeat monitoring notices the absence of a run, which error alerts never can, because a silent stop produces no error.</p></div>
+      <article class="work-card">
+        <div class="work-card__head"><span class="work-card__index">02 / 06</span><p class="work-card__tags">AI agents · Claude tool calling · Three channels</p></div>
+        <div class="work-card__body">
+          <div class="work-card__main">
+            <h3>Permission Aware Multi Channel AI Assistant</h3>
+            <p class="work-card__desc">An assistant that answers operational questions from company data and raises requests, built so it can never see or do more than the person asking it. One agent core serves every channel, so a new channel inherits the security model instead of re-implementing it.</p>
+            <ul class="work-card__points">
+              <li>Guarded read only SQL layer with view allowlists and per tenant query rewriting</li>
+              <li>Write actions require explicit user confirmation before executing</li>
+              <li>Agent permissions inherit platform identity, so the model cannot exceed the initiating user's authority</li>
+              <li>Charts and answers returned in channel, including image to record capture using vision</li>
+            </ul>
+          </div>
+          <aside class="work-card__side">
+            <div class="impact">
+              <span class="impact__label mono">Impact</span>
+              <div class="impact__grid">
+                <div><b>3</b><span>channels live: in app, Telegram, WhatsApp</span></div>
+                <div><b>2</b><span>data leak paths found by audit and closed before release</span></div>
+                <div><b>0</b><span>permissions of its own; it runs as the user</span></div>
+                <div><b>4</b><span>gate layers on every request, human or AI</span></div>
+              </div>
+              <p>Both fixes are covered by regression tests named after the incident. The full request path is drawn in the System section below.</p>
+            </div>
+            <ul class="chips"><li>Claude</li><li>Anthropic API</li><li>Python</li><li>DuckDB</li><li>Telegram Bot API</li><li>WhatsApp</li><li>Django</li></ul>
+          </aside>
         </div>
       </article>
+
+      <article class="work-card">
+        <div class="work-card__head"><span class="work-card__index">03 / 06</span><p class="work-card__tags">Data platform · Natural language analytics · Rapid delivery</p></div>
+        <div class="work-card__body">
+          <div class="work-card__main">
+            <h3>Asset Analytics Platform and AI Query Agent</h3>
+            <p class="work-card__desc">A modelled analytics warehouse and portal for a brand activation client working with global drinks brands, with a natural language query agent over the top. Rebuilt for a second brand on the same chassis inside a week to meet a tender deadline.</p>
+            <ul class="work-card__points">
+              <li>Live portal delivered within ten days of project confirmation</li>
+              <li>Query agent fenced by a least privilege read only database role, with tests proving the fence holds</li>
+              <li>Release gated by a fifteen case golden evaluation suite that blocks on failure</li>
+              <li>Fully isolated schemas per brand with a no cross access role model</li>
+            </ul>
+          </div>
+          <aside class="work-card__side">
+            <div class="impact">
+              <span class="impact__label mono">Impact</span>
+              <div class="impact__grid">
+                <div><b>10 days</b><span>from confirmation to a live portal</span></div>
+                <div><b>44</b><span>reconciliation checks, one per on screen figure</span></div>
+                <div><b>15</b><span>case golden evaluation suite gating release</span></div>
+                <div><b>&lt;1 wk</b><span>to rebuild for the second brand's tender</span></div>
+              </div>
+              <p>Every figure on the interface was verified against live SQL before the tender went in.</p>
+            </div>
+            <ul class="chips"><li>dbt</li><li>PostgreSQL</li><li>Vercel</li><li>Claude</li><li>SQL</li><li>Python</li></ul>
+          </aside>
+        </div>
+      </article>
+
+      <article class="work-card">
+        <div class="work-card__head"><span class="work-card__index">04 / 06</span><p class="work-card__tags">Production automation · Correctness critical send path</p></div>
+        <div class="work-card__body">
+          <div class="work-card__main">
+            <h3>Deterministic Email Campaign Engine</h3>
+            <p class="work-card__desc">A client wanted AI writing customer facing emails in a live send path. The brief demanded provable correctness, so I designed a deterministic engine and kept the model out of the path where being wrong cannot be undone. Only the client's own words are ever sent.</p>
+            <ul class="work-card__points">
+              <li>An 89 node legacy workflow re-architected into a four workflow system: campaign portal, follow up engine, reply and bounce handling, live monitoring</li>
+              <li>Code enforced guardrails: hard follow up cap, per run circuit breaker, per recipient cooldown, duplicate stage guard</li>
+              <li>An assertion that throws before sending if the greeting does not match the recipient</li>
+              <li>Bounce and out of office detection so only genuine delivery failures stop a sequence</li>
+            </ul>
+          </div>
+          <aside class="work-card__side">
+            <div class="impact">
+              <span class="impact__label mono">Impact</span>
+              <div class="impact__grid">
+                <div><b>180</b><span>message concurrency regression across four simultaneous campaigns</span></div>
+                <div><b>0</b><span>wrong name errors, no duplicates, before go live</span></div>
+                <div><b>89 → 4</b><span>nodes in one workflow became four workflows with clear ownership</span></div>
+                <div><b>Live</b><span>monitoring on every send</span></div>
+              </div>
+              <p>The model stayed where it helps and out of the path where a mistake reaches a customer.</p>
+            </div>
+            <ul class="chips"><li>n8n</li><li>Microsoft Graph</li><li>Airtable</li><li>JavaScript</li><li>OAuth 2.0</li></ul>
+          </aside>
+        </div>
+      </article>
+
+      <article class="work-card">
+        <div class="work-card__head"><span class="work-card__index">05 / 06</span><p class="work-card__tags">Data engineering · Vector search · Infrastructure lifecycle</p></div>
+        <div class="work-card__body">
+          <div class="work-card__main">
+            <h3>Large Scale Data Ingestion on AWS</h3>
+            <p class="work-card__desc">Monthly refresh of a five million record image matching database for a consumer application, executed end to end from cost estimate through to clean infrastructure teardown.</p>
+            <ul class="work-card__points">
+              <li>Filtered a 10.3 GB, 19.2 million record dataset to a candidate set, diffed against the live database</li>
+              <li>Ran an 80,000 record ingestion on ECS workers against RDS with pgvector HNSW indexing</li>
+              <li>Wrote a streaming parser sustaining around 8,000 records per second, memory safe on a constrained host</li>
+              <li>Infrastructure raised and torn down per run via targeted Terraform applies to avoid destructive drift</li>
+            </ul>
+          </div>
+          <aside class="work-card__side">
+            <div class="impact">
+              <span class="impact__label mono">Impact</span>
+              <div class="impact__grid">
+                <div><b>99.8%</b><span>completion with before and after evidence for sign off</span></div>
+                <div><b>8,000</b><span>records a second from the streaming parser</span></div>
+                <div><b>19.2M</b><span>records filtered from a 10.3 GB dataset</span></div>
+                <div><b>Runbook</b><span>so the process no longer depends on its author</span></div>
+              </div>
+              <p>Root caused a mid run throughput collapse to provider throttling and documented the fix.</p>
+            </div>
+            <ul class="chips"><li>AWS ECS</li><li>RDS</li><li>pgvector</li><li>Terraform</li><li>Celery</li><li>Python</li><li>S3</li></ul>
+          </aside>
+        </div>
+      </article>
+
+      <article class="work-card">
+        <div class="work-card__head"><span class="work-card__index">06 / 06</span><p class="work-card__tags">Production support · Observability · Incident response</p></div>
+        <div class="work-card__body">
+          <div class="work-card__main">
+            <h3>Production Resilience and Monitoring</h3>
+            <p class="work-card__desc">Inherited a live automation estate that had suffered an eighteen hour silent outage, with five of seven workflows running with no error alerting at all. Rebuilt the operational layer around it.</p>
+            <ul class="work-card__points">
+              <li>Error alerting and heartbeat stuck detection built from scratch, running at zero incremental cost</li>
+              <li>Around fifty integration nodes retry hardened in a single audit pass</li>
+              <li>Fragile polling triggers replaced with scheduled fetch and duplicate detection, structurally removing the stall class</li>
+              <li>Lost records recovered by API driven execution retries</li>
+            </ul>
+          </div>
+          <aside class="work-card__side">
+            <div class="beforeafter">
+              <div><span class="mono">Before</span><b>18 h</b><p>before anyone knew a workflow had stopped. The first signal was the client asking where their candidates were.</p></div>
+              <div><span class="mono">After</span><b>minutes</b><p>to know a workflow has stopped. Heartbeat monitoring notices the absence of a run, which error alerts never can.</p></div>
+            </div>
+            <ul class="chips"><li>n8n</li><li>Microsoft Graph</li><li>Slack</li><li>Python</li><li>Grafana</li><li>Loki</li></ul>
+          </aside>
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
 
-<section id="earlier">
+<!-- ================= SYSTEM ================= -->
+<section class="sec system" id="system">
   <div class="wrap">
-    <div class="shead reveal">
-      <div class="idx">02</div>
-      <div><p class="lbl">Earlier work &middot; 2021 to 2026</p><h2>Workflow automation and application development</h2><p>Built for SME clients across finance, healthcare, industrial services, real estate and professional services.</p></div>
+    <div class="sec-head">
+      <span class="sec-head__idx">03 / Inside one system</span>
+      <h2 data-split>How a request moves through the <em>assistant.</em></h2>
+      <p class="sec-head__lead" data-reveal>Project 02, drawn the way it actually runs. Choose a read or a write, then click any node to see what it does and why it is there.</p>
     </div>
-    <div class="ledger reveal">
-      <div class="row">
-        <div class="n">07</div>
-        <div><h3>Enterprise Payment Cycle System</h3><p class="m">Financial automation &middot; Multi branch</p><div class="chips"><span class="chip">n8n</span><span class="chip">Sheets API</span><span class="chip">Drive API</span><span class="chip">Webhooks</span></div></div>
+    <div class="pipe glass" id="pipeline" data-reveal>
+      <div class="pipe__bar">
+        <div class="seg" role="group" aria-label="Request type">
+          <button type="button" data-mode="read" class="is-on">Read request</button>
+          <button type="button" data-mode="write">Write request</button>
+        </div>
+        <span class="pipe__hint">Click a node · packets follow the live path</span>
+      </div>
+      <div class="pipe__stage"></div>
+      <div class="pipe__below">
+        <div class="pipe__info"></div>
+        <div class="pipe__log" aria-live="polite"></div>
+      </div>
+      <p class="pipe__foot">Illustrative trace. The shape is the production system; the figures in the log are examples.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EARLIER ================= -->
+<section class="sec earlier" id="earlier">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-head__idx">04 / Earlier work</span>
+      <h2 data-split>Automation for businesses that had never had <em>an engineer.</em></h2>
+      <p class="sec-head__lead" data-reveal>Workflow automation and application development for SME clients across finance, healthcare, industrial services, real estate and professional services, 2021 to 2026.</p>
+    </div>
+    <div class="grid3" data-reveal-group>
+      <article class="mini glass">
+        <div class="mini__top"><b>07</b><span>Financial automation · Multi branch</span></div>
+        <h3>Enterprise Payment Cycle System</h3>
         <p>Payment requests, document filing and proof of payment reconciliation across five or more branches, replacing a manual forms and scripts process.</p>
-        <p class="out"><b>Outcome</b>Manual document tracking eliminated across all branches, with an audit trail on every transaction the banking team cross references before approving payment.</p>
-      </div>
-      <div class="row">
-        <div class="n">08</div>
-        <div><h3>Automated Proof of Payment Processing</h3><p class="m">Email automation &middot; Fraud checks</p><div class="chips"><span class="chip">n8n</span><span class="chip">IMAP</span><span class="chip">Google Drive</span><span class="chip">Pattern matching</span></div></div>
+        <div class="mini__out"><b>Outcome</b>Manual document tracking removed across all branches, with an audit trail on every transaction the banking team checks before approving payment.</div>
+        <ul class="chips"><li>n8n</li><li>Sheets API</li><li>Drive API</li><li>Webhooks</li></ul>
+      </article>
+      <article class="mini glass">
+        <div class="mini__top"><b>08</b><span>Email automation · Fraud checks</span></div>
+        <h3>Automated Proof of Payment Processing</h3>
         <p>Watches branch inboxes for bank proof of payment messages, extracts the payment data, matches it to the original request and files it, with a fraud validation layer and duplicate detection.</p>
-        <p class="out"><b>Outcome</b>Manual filing removed and reconciliation cut from hours to minutes, with no missed proofs of payment.</p>
-      </div>
-      <div class="row">
-        <div class="n">09</div>
-        <div><h3>AI Care Assistant</h3><p class="m">AI chatbot &middot; Healthcare operations</p><div class="chips"><span class="chip">Claude</span><span class="chip">n8n</span><span class="chip">Telegram API</span><span class="chip">Google Sheets</span></div></div>
+        <div class="mini__out"><b>Outcome</b>Manual filing removed and reconciliation cut from hours to minutes, with no missed proofs of payment.</div>
+        <ul class="chips"><li>n8n</li><li>IMAP</li><li>Google Drive</li><li>Pattern matching</li></ul>
+      </article>
+      <article class="mini glass">
+        <div class="mini__top"><b>09</b><span>AI chatbot · Healthcare operations</span></div>
+        <h3>AI Care Assistant</h3>
         <p>An assistant for a care facility handling resident communication, vital sign recording, care plan queries and shift summaries, synchronising data across several platforms.</p>
-        <p class="out"><b>Outcome</b>Reduced administrative load on care staff and improved handover between shifts.</p>
-      </div>
-      <div class="row">
-        <div class="n">10</div>
-        <div><h3>Paycycle and Auditor Application</h3><p class="m">Full stack &middot; Multi level approvals</p><div class="chips"><span class="chip">Python</span><span class="chip">Supabase</span><span class="chip">n8n</span><span class="chip">Google APIs</span></div></div>
+        <div class="mini__out"><b>Outcome</b>Less administrative load on care staff and a cleaner handover between shifts.</div>
+        <ul class="chips"><li>Claude</li><li>n8n</li><li>Telegram API</li><li>Google Sheets</li></ul>
+      </article>
+      <article class="mini glass">
+        <div class="mini__top"><b>10</b><span>Full stack · Multi level approvals</span></div>
+        <h3>Paycycle and Auditor Application</h3>
         <p>Paycycle management and auditing covering the full payment lifecycle from request through approval to audit trail, across multiple branches with role based access.</p>
-        <p class="out"><b>Highlights</b>Multi level approval workflow, automated document numbering, branch specific configuration on a shared deployment, complete audit history.</p>
-      </div>
-      <div class="row">
-        <div class="n">11</div>
-        <div><h3>Workshop Job Card and Costing System</h3><p class="m">Process automation &middot; Industrial services</p><div class="chips"><span class="chip">n8n</span><span class="chip">Google Sheets</span><span class="chip">PDF generation</span><span class="chip">Custom forms</span></div></div>
+        <div class="mini__out"><b>Highlights</b>Multi level approval workflow, automated document numbering, branch specific configuration on a shared deployment, complete audit history.</div>
+        <ul class="chips"><li>Python</li><li>Supabase</li><li>n8n</li><li>Google APIs</li></ul>
+      </article>
+      <article class="mini glass">
+        <div class="mini__top"><b>11</b><span>Process automation · Industrial services</span></div>
+        <h3>Workshop Job Card and Costing System</h3>
         <p>Job cards, costing calculations and invoice generation for an industrial services company managing container unpacking and equipment processing across multiple sites.</p>
-        <p class="out"><b>Highlights</b>Work order tracking through completion, automated costing and pricing, tax invoices generated directly from job card data.</p>
-      </div>
-      <div class="row">
-        <div class="n">12</div>
-        <div><h3>CRM and Business Process Suite</h3><p class="m">CRM configuration &middot; Reporting automation</p><div class="chips"><span class="chip">Monday.com</span><span class="chip">Apps Script</span><span class="chip">AppSheet</span><span class="chip">n8n</span></div></div>
+        <div class="mini__out"><b>Highlights</b>Work order tracking through completion, automated costing and pricing, tax invoices generated directly from job card data.</div>
+        <ul class="chips"><li>n8n</li><li>Google Sheets</li><li>PDF generation</li><li>Custom forms</li></ul>
+      </article>
+      <article class="mini glass">
+        <div class="mini__top"><b>12</b><span>CRM configuration · Reporting automation</span></div>
+        <h3>CRM and Business Process Suite</h3>
         <p>Monday.com integrated with Google Workspace for project management, reporting and client tracking across multiple clients, plus leave management and a custom Kanban application.</p>
-        <p class="out"><b>Highlights</b>Pipelines and automations per client, automated reporting from time tracking data, approval workflow for leave.</p>
-      </div>
-      <div class="row">
-        <div class="n">13</div>
-        <div><h3>Enterprise Document Management</h3><p class="m">Document management &middot; Digitisation</p><div class="chips"><span class="chip">DocuWare</span><span class="chip">Windows Server</span><span class="chip">Merge forms</span></div></div>
+        <div class="mini__out"><b>Highlights</b>Pipelines and automations per client, automated reporting from time tracking data, approval workflow for leave.</div>
+        <ul class="chips"><li>Monday.com</li><li>Apps Script</li><li>AppSheet</li><li>n8n</li></ul>
+      </article>
+      <article class="mini glass">
+        <div class="mini__top"><b>13</b><span>Document management · Digitisation</span></div>
+        <h3>Enterprise Document Management</h3>
         <p>Implemented and administered a document management system for a real estate business, converting paper based processes into routed digital workflows with role based access.</p>
-        <p class="out"><b>Highlights</b>Workflow, merge form and web form design, user role structures, documentation and training for adoption.</p>
+        <div class="mini__out"><b>Highlights</b>Workflow, merge form and web form design, user role structures, documentation and training for adoption.</div>
+        <ul class="chips"><li>DocuWare</li><li>Windows Server</li><li>Merge forms</li></ul>
+      </article>
+      <article class="mini glass">
+        <div class="mini__top"><b>14</b><span>Marketing site · SEO preserved</span></div>
+        <h3>Company Website Rebuild</h3>
+        <p>Designed and built a consultancy's 12 page marketing site in house, with structured data on every page and ranking pages rebuilt at their exact URLs with byte for byte title matches.</p>
+        <div class="mini__out"><b>Outcome</b>Rankings kept through the migration and a quoted £15,000+ agency fee saved.</div>
+        <ul class="chips"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Structured data</li></ul>
+      </article>
+      <article class="mini glass">
+        <div class="mini__top"><b>15</b><span>Production fix · Document RAG</span></div>
+        <h3>Document RAG Application Repair</h3>
+        <p>Uploads on a FastAPI and MongoDB Atlas application hung for five minutes or more. Moved the blocking document parsing to background tasks with batched embeddings.</p>
+        <div class="mini__out"><b>Outcome</b>Responses in under three seconds, verified in production on the exact files users had reported.</div>
+        <ul class="chips"><li>FastAPI</li><li>MongoDB Atlas</li><li>Embeddings</li><li>Background tasks</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STACK ================= -->
+<section class="sec stack-sec" id="stack">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-head__idx">05 / Stack</span>
+      <h2 data-split>What I build <em>with.</em></h2>
+      <p class="sec-head__lead" data-reveal>Depth is in the first three rows. The rest is what the work has needed. Pick a category to light it up.</p>
+    </div>
+    <div class="stack-grid">
+      <div class="sphere" data-reveal>
+        <div class="sphere__ring"></div>
+        <canvas id="sphere" aria-label="Rotating cloud of technologies" role="img"></canvas>
+        <span class="sphere__hint mono">Move the pointer to steer</span>
+      </div>
+      <div data-reveal data-delay=".1">
+        <div class="cats" role="group" aria-label="Filter by category">
+          <button type="button" data-cat="all" class="is-on">All</button>
+          <button type="button" data-cat="ai">AI &amp; LLMs</button>
+          <button type="button" data-cat="dev">Development</button>
+          <button type="button" data-cat="data">Data</button>
+          <button type="button" data-cat="cloud">Cloud</button>
+          <button type="button" data-cat="ops">Security &amp; Ops</button>
+          <button type="button" data-cat="integ">Automation &amp; Integrations</button>
+        </div>
+        <dl class="stack-rows">
+          <div data-cat="ai"><dt>AI and LLMs</dt><dd>Claude and the Anthropic API, Claude Code daily in production, AI agents and tool calling, RAG and retrieval pipelines, embeddings and vector search, prompt caching, multi tier model routing, golden evaluation suites</dd></div>
+          <div data-cat="dev"><dt>Languages</dt><dd>Python, TypeScript, JavaScript, SQL, HTML and CSS, Google Apps Script</dd></div>
+          <div data-cat="dev"><dt>Frameworks</dt><dd>Django and Django REST Framework, FastAPI, Flask, React, Node.js</dd></div>
+          <div data-cat="data"><dt>Data</dt><dd>PostgreSQL, pgvector, DuckDB, dbt, MongoDB Atlas, Supabase, warehouse modelling, reconciliation frameworks</dd></div>
+          <div data-cat="cloud"><dt>Cloud and infra</dt><dd>AWS (ECS, RDS, S3), Terraform, Docker, GitHub Actions, Vercel, Neon, Render, Hetzner</dd></div>
+          <div data-cat="ops"><dt>Security and ops</dt><dd>Linux server hardening, NGINX, TLS, UFW, fail2ban, Tailscale, systemd, OAuth 2.0, role based access control, database role fencing, least privilege, adversarial permission testing</dd></div>
+          <div data-cat="ops"><dt>Observability</dt><dd>Grafana, Loki, heartbeat monitoring, alerting, incident response, spend controls and kill switches</dd></div>
+          <div data-cat="integ"><dt>Automation</dt><dd>n8n at depth, webhooks, IMAP triggers, scheduled workflows, API integration, circuit breakers and idempotency</dd></div>
+          <div data-cat="integ"><dt>Integrations</dt><dd>Microsoft Graph and Outlook, Business Central OData, Monday.com, Airtable, Linear, Telegram Bot API, Twilio and WhatsApp, Calendly, Google Workspace, AppSheet</dd></div>
+        </dl>
       </div>
     </div>
   </div>
 </section>
 
-<section id="stack">
+<!-- ================= EXPERIENCE ================= -->
+<section class="sec timeline" id="experience">
   <div class="wrap">
-    <div class="shead reveal">
-      <div class="idx">03</div>
-      <div><p class="lbl">Technical summary</p><h2>What I build with</h2><p>Depth is in the first three rows. The rest is what the work has needed.</p></div>
+    <div class="sec-head">
+      <span class="sec-head__idx">06 / Experience</span>
+      <h2 data-split>Eight years, from the server room to the <em>agent loop.</em></h2>
+      <p class="sec-head__lead" data-reveal>Systems engineering and support first, then workflow and web development, then AI systems and automation for businesses that depend on them every day.</p>
     </div>
-    <div class="stack reveal">
-      <div class="r"><b>AI and LLMs</b><span>Claude and the Anthropic API, Claude Code daily in production, AI agents and tool calling, RAG and retrieval pipelines, embeddings and vector search, prompt caching, multi tier model routing, golden evaluation suites</span></div>
-      <div class="r"><b>Languages</b><span>Python, TypeScript, JavaScript, SQL, HTML and CSS, Google Apps Script</span></div>
-      <div class="r"><b>Frameworks</b><span>Django and Django REST Framework, FastAPI, Flask, React, Node.js</span></div>
-      <div class="r"><b>Data</b><span>PostgreSQL, pgvector, DuckDB, dbt, MongoDB Atlas, Supabase, warehouse modelling, reconciliation frameworks</span></div>
-      <div class="r"><b>Cloud and infra</b><span>AWS (ECS, RDS, S3), Terraform, Docker, GitHub Actions, Vercel, Neon, Render, Hetzner, Linux server hardening</span></div>
-      <div class="r"><b>Observability</b><span>Grafana, Loki, heartbeat monitoring, alerting, incident response, spend controls and kill switches</span></div>
-      <div class="r"><b>Automation</b><span>n8n at depth, webhooks, IMAP triggers, scheduled workflows, API integration, circuit breakers and idempotency</span></div>
-      <div class="r"><b>Integrations</b><span>Microsoft Graph and Outlook, Business Central OData, Monday.com, Airtable, Linear, Telegram Bot API, Twilio and WhatsApp, Google Workspace</span></div>
-      <div class="r"><b>Security</b><span>OAuth 2.0, role based access control design, database role fencing, least privilege, adversarial permission testing</span></div>
+    <div class="tl">
+      <div class="tl__rail"><i></i></div>
+      <article class="tl__item" data-reveal>
+        <div class="tl__when"><b>April 2026 → Present</b>Remote · Fixed term contract</div>
+        <div><h3>AI Engineer &amp; Technical Delivery Lead</h3><p class="tl__org">UK AI consultancy</p><p>Named lead on two client accounts, owning intake, scoping, build, deployment and production support. AI systems, automation and production engineering across seven UK client businesses.</p></div>
+      </article>
+      <article class="tl__item" data-reveal>
+        <div class="tl__when"><b>March 2025 → March 2026</b>Bloemfontein · Remote</div>
+        <div><h3>Workflow Automation &amp; Application Development Lead</h3><p class="tl__org">EZEMind AI</p><p>End to end automation for SME clients: n8n payment cycles that cut manual processing time by over 60%, the EzeFlow paycycle and auditor application, AVA, an assistant built on Claude, Monday.com CRM configuration and corporate training.</p></div>
+      </article>
+      <article class="tl__item" data-reveal>
+        <div class="tl__when"><b>July 2024 → March 2025</b>Bloemfontein</div>
+        <div><h3>IT Solutions Consultant &amp; Freelance Developer</h3><p class="tl__org">Self employed</p><p>Websites, email configuration, application deployment and system administration for SME clients, and online English lessons to 200+ students (120 hour Universal TEFL Certificate).</p></div>
+      </article>
+      <article class="tl__item" data-reveal>
+        <div class="tl__when"><b>February 2023 → February 2024</b>Bloemfontein</div>
+        <div><h3>IT Technician &amp; Technical Analyst</h3><p class="tl__org">E2E Group / WRCON</p><p>Organisation wide IT support, QGIS asset mapping for municipal clients, auditor grade condition assessments with data integrity and duplicate detection across large asset databases, and the company website with a PHP backend.</p></div>
+      </article>
+      <article class="tl__item" data-reveal>
+        <div class="tl__when"><b>December 2021 → February 2023</b>Bloemfontein</div>
+        <div><h3>Junior Developer &amp; Workflow Specialist</h3><p class="tl__org">National Real Estate</p><p>DocuWare document management workflows, merge forms and web forms, user role structures and access controls, technical documentation and user training.</p></div>
+      </article>
+      <article class="tl__item" data-reveal>
+        <div class="tl__when"><b>April 2021 → November 2021</b>Bloemfontein</div>
+        <div><h3>Technical Support Specialist</h3><p class="tl__org">Vodacom (Techzone)</p><p>Hardware, software, network and GSM diagnostics for consumer and business clients; ICT configuration, data migration and backups, warranty repairs and technical inventory.</p></div>
+      </article>
+      <article class="tl__item" data-reveal>
+        <div class="tl__when"><b>October 2018 → December 2020</b>Bloemfontein</div>
+        <div><h3>General Manager &amp; Web Developer</h3><p class="tl__org">Heaven Cloud</p><p>Led a small team delivering IT solutions and web development to business clients, building frontend web solutions and managing client relationships and day to day operations.</p></div>
+      </article>
     </div>
   </div>
 </section>
 
-<section id="contact">
+<!-- ================= ABOUT ================= -->
+<section class="sec about" id="about">
   <div class="wrap">
-    <div class="shead reveal">
-      <div class="idx">04</div>
-      <div><p class="lbl">Contact</p><h2>If you want to see how any of this was built, <em style="font-style:italic;font-weight:500;color:var(--amber)">ask.</em></h2></div>
-    </div>
-    <div class="contact reveal">
-      <div>
-        <p>Remote, based in Bloemfontein, South Africa. SAST (GMT+2), with strong UK and European hours overlap. Happy to go deeper on the engineering behind any project on this page.</p>
-        <div class="btns">
-          <a class="btn primary" href="mailto:willonsmith7@gmail.com">Email me</a>
-          <a class="btn ghost" href="willon-smith-cv.pdf">Download CV</a>
-          <a class="btn ghost" href="willon-smith-portfolio.pdf">Portfolio as PDF</a>
+    <div class="about-grid">
+      <div class="portrait tilt" data-reveal>
+        <div class="portrait__glow"></div>
+        <div class="portrait__orbit"></div>
+        <div class="portrait__card">
+          <picture>
+            <source srcset="assets/willon.webp" type="image/webp">
+            <img src="assets/willon.png" alt="Willon Smith" width="410" height="410" loading="lazy">
+          </picture>
+        </div>
+        <div class="portrait__tag"><span class="dot"></span>Bloemfontein · SAST</div>
+      </div>
+      <div class="about__bio">
+        <span class="sec-head__idx" data-reveal>07 / About</span>
+        <h2 data-split>Based in Bloemfontein, working on <em>UK hours.</em></h2>
+        <p data-reveal>I started in systems engineering and support, moved into workflow and web development, and for the last two years have built AI systems and automation for businesses that run on them. I pick work up while the requirement is still unclear and stay with it through architecture, build, deployment and support.</p>
+        <p data-reveal>Established remote collaborator with UK teams: on UK hours daily, in a fully equipped home office with backup power and a reliable connection.</p>
+        <div class="facts" data-reveal-group>
+          <div><b>Availability</b><span>From October 2026, on completion of the current UK contract. Remote contract or permanent.</span></div>
+          <div><b>Timezone</b><span>SAST (GMT+2), strong overlap with UK and European hours</span></div>
+          <div><b>Languages</b><span>English (fluent), Afrikaans (native)</span></div>
+          <div><b>Education</b><span>System Engineer Skills Certificate, MICT SETA accredited, ATTI 2017. 120 hour Universal TEFL Certificate.</span></div>
+        </div>
+        <div class="about__cta" data-reveal>
+          <a class="btn btn--primary magnetic" href="willon-smith-cv.pdf" target="_blank" rel="noopener">Download CV<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg></a>
+          <a class="btn magnetic" href="willon-smith-portfolio.pdf" target="_blank" rel="noopener">Portfolio as PDF</a>
         </div>
       </div>
-      <div class="links">
-        <a href="mailto:willonsmith7@gmail.com"><span class="l">Email</span>willonsmith7@gmail.com</a>
-        <a href="tel:+27797061500"><span class="l">Phone</span>+27 79 706 1500</a>
-        <a href="https://github.com/willon-smith"><span class="l">GitHub</span>github.com/willon-smith</a>
-        <a href="https://linkedin.com/in/willon-smith-583361164"><span class="l">LinkedIn</span>linkedin.com/in/willon-smith-583361164</a>
-      </div>
-    </div>
-    <div class="note reveal">
-      <div class="q">&ldquo;</div>
-      <div><b>A note on this page.</b> Client identities are withheld under NDA and no client system, screenshot or live link is reproduced here. Every metric quoted was measured in production or in a verified test run. Where work was led by a colleague and I contributed, this page does not claim it.</div>
     </div>
   </div>
 </section>
 
-<footer>
+<!-- ================= CONTACT ================= -->
+<section class="sec contact" id="contact">
   <div class="wrap">
-    <span>Willon Smith &middot; AI Engineer and Technical Delivery Lead &middot; Bloemfontein, South Africa</span>
-    <span><a href="https://github.com/willon-smith">GitHub</a> &nbsp;&middot;&nbsp; <a href="https://linkedin.com/in/willon-smith-583361164">LinkedIn</a> &nbsp;&middot;&nbsp; <a href="mailto:willonsmith7@gmail.com">Email</a></span>
+    <div class="contact__grid">
+      <div>
+        <span class="sec-head__idx" data-reveal>08 / Contact</span>
+        <h2 data-split>Let's build something that <em>holds up.</em></h2>
+        <p class="contact__lead" data-reveal>If you want to see how any of this was built, ask. Happy to go deeper on the engineering behind any project on this page.</p>
+        <a class="contact__mail" href="mailto:willonsmith7@gmail.com" data-reveal>willonsmith7@gmail.com<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+        <div class="note" data-reveal><b>A note on this page.</b> Client identities are withheld under NDA and no client system, screenshot or live link is reproduced here. Every metric quoted was measured in production or in a verified test run. Where work was led by a colleague and I contributed, this page does not claim it.</div>
+      </div>
+      <div class="term" data-reveal data-delay=".1">
+        <div class="term__bar"><i></i><i></i><i></i><span>willon@bloemfontein</span></div>
+        <div class="term__body">
+          <div class="term__line"><span class="term__ps">➜ ~</span><span class="term__cmd" data-type="contact --willon"></span><span class="term__cursor"></span></div>
+          <div class="term__line"><span class="term__k">email</span><span class="term__v"><a href="mailto:willonsmith7@gmail.com">willonsmith7@gmail.com</a></span><button type="button" class="copy" data-copy="willonsmith7@gmail.com">Copy</button></div>
+          <div class="term__line"><span class="term__k">phone</span><span class="term__v"><a href="tel:+27797061500">+27 79 706 1500</a></span><button type="button" class="copy" data-copy="+27 79 706 1500">Copy</button></div>
+          <div class="term__line"><span class="term__k">linkedin</span><span class="term__v"><a href="https://linkedin.com/in/willon-smith-583361164" target="_blank" rel="noopener">linkedin.com/in/willon-smith-583361164</a></span><button type="button" class="copy" data-copy="https://linkedin.com/in/willon-smith-583361164">Copy</button></div>
+          <div class="term__line"><span class="term__k">github</span><span class="term__v"><a href="https://github.com/willon-smith" target="_blank" rel="noopener">github.com/willon-smith</a></span><button type="button" class="copy" data-copy="https://github.com/willon-smith">Copy</button></div>
+          <div class="term__line"><span class="term__k">location</span><span class="term__v">Bloemfontein, South Africa · SAST (GMT+2)</span></div>
+          <div class="term__line"><span class="term__k">status</span><span class="term__v">open to remote roles from October 2026</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <p>Willon Smith · AI Engineer and Technical Delivery Lead · Bloemfontein, South Africa</p>
+    <div class="footer__links">
+      <a href="https://github.com/willon-smith" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/willon-smith-583361164" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:willonsmith7@gmail.com">Email</a>
+      <a href="willon-smith-cv.pdf" target="_blank" rel="noopener">CV</a>
+    </div>
+    <div class="footer__time">Local time <b data-local-time>--:--</b> SAST<br>Three.js · GSAP · Lenis · no framework</div>
   </div>
 </footer>
 
-<script>
-(function(){
-  var bar=document.getElementById('bar');
-  function prog(){var h=document.documentElement;var p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);bar.style.width=(p*100)+'%';}
-  window.addEventListener('scroll',prog,{passive:true});prog();
-  var els=[].slice.call(document.querySelectorAll('.reveal'));
-  if(!('IntersectionObserver' in window)||window.matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('in');});return;}
-  var io=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{rootMargin:'0px 0px -8% 0px',threshold:.08});
-  els.forEach(function(e){io.observe(e);});
-})();
-</script>
+<nav class="dock" aria-label="Sections">
+  <a href="#work"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 10h18"/></svg>Work</a>
+  <a href="#system"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><path d="M7 12l10-6M7 12l10 6"/></svg>System</a>
+  <a href="#stack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>Stack</a>
+  <a href="#experience"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Path</a>
+  <a href="#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 8l9 6 9-6"/></svg>Contact</a>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script type="module" src="js/main.js"></script>
 </body>
 </html>
