@@ -23,8 +23,8 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const NAV_OFFSET = 94; // nav height + sticky gap, mirrors --nav-h + 18px in the CSS
 
 /* ---------- smooth scroll ---------- */
-let lenis = null;
-if (!reduce) {
+let lenis = null; // optional: if the CDN did not deliver Lenis, the page scrolls natively
+if (!reduce && Lenis) {
   lenis = new Lenis({ lerp: 0.085, smoothWheel: true });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add(t => lenis.raf(t * 1000));
@@ -135,7 +135,7 @@ if (reduce) {
   pre.remove();
   fontsReady.then(() => { setupStack(); ScrollTrigger.sort(); ScrollTrigger.refresh(); });
 } else {
-  lenis.stop();
+  lenis?.stop();
   gsap.set(heroBits, { autoAlpha: 0 });
   gsap.set('.hero__title', { autoAlpha: 0 });
   const count = $('.preloader__count');
@@ -154,7 +154,7 @@ if (reduce) {
     const tl = gsap.timeline({ defaults: { ease: 'power4.out' }, onComplete() {
       pre.remove();
       if (heroSplit) { heroSplit.revert(); heroSplit = null; }
-      lenis.start();
+      lenis?.start();
       setupHero();
       setupStack();
       ScrollTrigger.sort();
