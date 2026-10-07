@@ -19,7 +19,7 @@ No build step. Libraries load from jsDelivr and Google Fonts; everything else is
 ## Editing
 
 - Copy changes: edit `index.html` directly.
-- Availability status: the pill in the hero, the nav status and the last line of the contact terminal.
+- Availability status: the pill in the hero, the nav status, the Availability line in the About facts and the last line of the contact terminal.
 - The stack sphere words are the `WORDS` list in `js/main.js`; the categories match the `data-cat` values on the filter buttons.
 - The pipeline diagram is driven by `NODES`, `EDGES`, `INFO` and `LOGS` in `js/pipeline.js`.
 

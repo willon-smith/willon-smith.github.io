@@ -5,13 +5,13 @@ const NODES = [
   { id: 'web',     x: 30,   y: 60,  w: 180, h: 64,  title: 'Web app',           sub: 'React, in-app chat',            lane: 'channels' },
   { id: 'tg',      x: 30,   y: 176, w: 180, h: 64,  title: 'Telegram',          sub: 'Bot API',                       lane: 'channels' },
   { id: 'wa',      x: 30,   y: 292, w: 180, h: 64,  title: 'WhatsApp',          sub: 'Twilio',                        lane: 'channels' },
-  { id: 'agent',   x: 270,  y: 150, w: 200, h: 116, title: 'Claude agent',      sub: 'parameterised tools only',      tag: 'RUNS AS THE USER', lane: 'agent' },
+  { id: 'agent',   x: 270,  y: 150, w: 200, h: 116, title: 'Claude agent',      sub: 'checked SELECTs, few tools',      tag: 'RUNS AS THE USER', lane: 'agent' },
   { id: 'gate',    x: 530,  y: 122, w: 200, h: 172, title: 'Permission gate',   sub: 'tenant · role · team · row and field', tag: 'FILTERED IN THE DATABASE', lane: 'gate' },
   { id: 'sql',     x: 790,  y: 42,  w: 210, h: 84,  title: 'Guarded SQL',       sub: 'read only views, allowlisted',  tag: 'READ PATH', lane: 'data' },
   { id: 'confirm', x: 790,  y: 190, w: 210, h: 84,  title: 'Confirm with user', sub: 'proposal shown in channel',     tag: 'WRITE PATH', lane: 'data' },
   { id: 'core',    x: 790,  y: 330, w: 210, h: 84,  title: 'Application core',  sub: 'same code as a button click',   lane: 'data' },
   { id: 'answer',  x: 1060, y: 42,  w: 210, h: 84,  title: 'Answer in channel', sub: 'text, charts, records',         lane: 'output' },
-  { id: 'audit',   x: 1060, y: 330, w: 210, h: 84,  title: 'Audit log',         sub: 'user · tool · params · result', lane: 'output' },
+  { id: 'audit',   x: 1060, y: 330, w: 210, h: 84,  title: 'Audit log',         sub: 'user · question · any write', lane: 'output' },
 ];
 
 const EDGES = [
@@ -29,26 +29,26 @@ const EDGES = [
 ];
 
 const INFO = {
-  web:     ['One agent core, every channel', 'The web app, Telegram and WhatsApp all talk to the same agent core. A new channel inherits the security model instead of re-implementing it.'],
+  web:     ['One agent core, every channel', 'The web app, Telegram and WhatsApp all talk to the same agent core. Each new channel inherits the same security model.'],
   tg:      ['Telegram', 'Questions and requests arrive as ordinary messages. Photos work too: a picture of a delivery note becomes a record through vision, then goes through the same gate as typed input.'],
   wa:      ['WhatsApp', 'Site staff mostly work from a phone. WhatsApp lets them ask about live spend or raise a request without opening a laptop, with identity resolved to a platform user before anything runs.'],
-  agent:   ['Claude selects tools, never writes SQL', 'The model chooses from a small set of parameterised tools. It has no credentials and no permissions of its own: every call runs as the person asking, so it cannot exceed their authority.'],
+  agent:   ['Claude writes the query, a validator checks it', 'For numbers the model writes one SELECT. A validator allows a single SELECT or WITH statement over the allowed views and refuses everything else before it runs. The model has no credentials and no permissions of its own: every call runs as the person asking, so it cannot exceed their authority.'],
   gate:    ['Four layers, enforced in the database', 'Tenant, role, team and row and field rules apply to every request, human or AI. Filtering happens in the query, so the model never sees a row the user could not see themselves.'],
-  sql:     ['Guarded read only layer', 'Reads go through allowlisted views with per tenant query rewriting. A least privilege database role means a bad query fails loudly rather than leaking quietly.'],
-  confirm: ['Writes wait for a human', 'The model proposes an action and the user sees exactly what will change. Nothing is written until they confirm in the channel they asked from.'],
+  sql:     ['Guarded read only layer', 'Reads go through per account views of a warehouse that is opened read only, so a query can only see that account and can never write. A query the validator refused never reaches it.'],
+  confirm: ['Writes wait for a human', 'The model proposes an action and the user sees exactly what will change. Actions and new flows wait for the user to press confirm. A tracker row asked for in chat is the exception: the model is told to confirm first, and the row is written when it calls the tool.'],
   core:    ['Same code path as the web app', 'A confirmed action runs through the application core, so validation, value thresholds and approval routing apply exactly as they would to a button click.'],
   answer:  ['Back in the channel it came from', 'Answers, charts and created records return to the user in place. Multi turn state is kept per user so follow up questions work.'],
-  audit:   ['Every call is logged', 'User, tool, parameters and result on every call. The adversarial audit that found two data leak paths before release was run against this log, and both fixes are covered by regression tests.'],
+  audit:   ['Every question is logged', 'Each question leaves a row: who asked, what they asked and whether anything was written. Each write is audited by the endpoint that makes it. An adversarial audit found two data leak paths before release, and both fixes are covered by regression tests.'],
 };
 
 const LOGS = {
   read: [
     ['telegram', 'message received from user 2, tenant A'],
-    ['agent', 'tool selected: plant_hire_summary(week="current")'],
+    ['agent', 'writes: SELECT on plant_hire_v for this week'],
     ['gate', '<span class="ok">tenant ✓  role ✓  team ✓</span>  row rules applied'],
-    ['sql', 'read only view plant_hire_v, 14 rows returned'],
+    ['sql', '<span class="ok">validator ✓</span>  read only warehouse, 14 rows returned'],
     ['answer', '"£1,726 of plant hire is live this week across 14 units"'],
-    ['audit', 'logged: user, tool, params, result, 212 ms'],
+    ['audit', 'logged: user, question, no write, 212 ms'],
   ],
   write: [
     ['whatsapp', 'message received from user 7, tenant A'],
@@ -57,7 +57,7 @@ const LOGS = {
     ['confirm', '"Raise an off hire for unit 42 today?"  <span class="wait">awaiting user</span>'],
     ['confirm', 'user replied: yes'],
     ['core', 'off hire request #1043 created, approval routed to site manager'],
-    ['audit', 'logged: user, tool, params, result'],
+    ['audit', 'logged: user, question, one write'],
     ['answer', '"Done. Request #1043 is with the site manager for approval"'],
   ],
 };

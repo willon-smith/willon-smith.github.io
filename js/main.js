@@ -4,6 +4,12 @@ import { initPipeline } from './pipeline.js';
 import { initSphere } from './sphere.js';
 
 const { gsap, ScrollTrigger, SplitText, Lenis } = window;
+if (!gsap || !ScrollTrigger || !SplitText) {
+  // The CDN did not deliver GSAP: drop back to the static page the no-js styles
+  // describe, so the preloader lifts and every section shows.
+  document.documentElement.classList.replace('js', 'no-js');
+  throw new Error('GSAP did not load; showing the static page');
+}
 gsap.registerPlugin(ScrollTrigger, SplitText);
 ScrollTrigger.config({ ignoreMobileResize: true });
 
